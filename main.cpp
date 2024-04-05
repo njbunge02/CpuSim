@@ -11,8 +11,8 @@
 
 using namespace std;
 
-string checkForErrors(vector<vector<string>> instructions);
-vector<string> convertToBinary(vector<vector<string>> instructions);
+string checkForErrors(vector<vector<string> > instructions);
+vector<string> convertToBinary(vector<vector<string> > instructions);
 
 int main(int argc, char* argv[])
 {
@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
     string element;
     stringstream ss;
 
-    vector<vector<string>> instructions;    //holds all lines of file
+    vector<vector<string> > instructions;    //holds all lines of file
     vector<string> arguments;
 
     //reads file and puts them into a vector
@@ -93,7 +93,7 @@ int main(int argc, char* argv[])
     return 0;
 }
 
-string checkForErrors(vector<vector<string>> instructions)
+string checkForErrors(vector<vector<string> > instructions)
 {
     
     stringstream errorSS;
@@ -166,7 +166,7 @@ string checkForErrors(vector<vector<string>> instructions)
    }
 }
 
-vector<string> convertToBinary(vector<vector<string>> instructions)
+vector<string> convertToBinary(vector<vector<string> > instructions)
 {
     vector<string> data;
     stringstream lineDataSS;
