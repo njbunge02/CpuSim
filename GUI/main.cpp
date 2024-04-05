@@ -1,12 +1,3 @@
-//
-//		          Programming Assignment #2 CPSC4050/6050
-//
-//					Daljit Singh Dhillon 
-//
-//
-/***************************************************************************/
-
-/* Include needed files */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -20,9 +11,6 @@
 #define WIDTH 1280
 #define HEIGHT 720
 
-
-/***************************************************************************/
-// Forward declarations
 
 
 float aspect = (float)WIDTH / (float)HEIGHT;
@@ -43,7 +31,7 @@ void renderBitmapString(float x, float y, void *font, const char *string) {
     }
 }
 
-/***************************************************************************/
+
 void initWindow()
 /* Clear the image area, and set up the coordinate system */
 {
@@ -55,7 +43,6 @@ void initWindow()
    gluPerspective(fov, (float)WIDTH / (float)HEIGHT, 1.0, 1000.0);
   
    
-
    glEnable(GL_DEPTH_TEST); 
  
 }
@@ -106,13 +93,10 @@ void keyboard(unsigned char key, int x, int y)
 
 int main (int argc, char *argv[])
 {
-/* This main function sets up the main loop of the program and continues the
-   loop until the end of the data is reached.  Then the window can be closed
-   using the escape key.						  */
+
 	
-	//while (currExample != 0)
 	{
-		//intakeChoice();
+		
 		
 		glutInit(&argc, argv); 
 		glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); 
