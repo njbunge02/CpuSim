@@ -4,14 +4,14 @@ CC=g++
 LD=$(CC)
 ## Flags
 PROGRAM = CpuSim
-OBJECTS = Controllers/main.o Views/GPU.o
+OBJECTS = Controllers/main.o Views/GUI.o
 CPPFLAGS = -Wall
 LFLAGS = -L/System/Library/Frameworks -framework GLUT -framework OpenGL
 
 TARGETS = $(PROGFILES:.cpp=)
 
 PROGFILES = \
-        Controllers/main.cpp Views/GPU.cpp\
+        Controllers/main.cpp Views/GUI.cpp\
         $(NULL)
 
 

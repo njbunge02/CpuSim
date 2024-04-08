@@ -13,10 +13,7 @@
 #include <math.h>
 #include "../Views/GUI.h"
 
-
-
 using namespace std;
-
 
 int main (int argc, char *argv[])
 {
