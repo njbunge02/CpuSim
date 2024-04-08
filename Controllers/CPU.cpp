@@ -9,12 +9,19 @@ int CPU::readBinaryFile(const string filename) {
         return 1; // Exit with error code 1
     }
 
-    string line;
+    /*string line;
     while (getline(file, line)) { // Read each line from the file
         cout << line << endl; // Output the line to the console
+    }*/
+
+    char byte;
+    while (file.read(&byte, 1)) {
+        bitset<8> bits(byte);
+        
+        cout << bits << ' ';
     }
 
-    file.close(); // Close the file
+    file.close();
 
     return 0;
  }

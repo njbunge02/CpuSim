@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 #include <GLUT/glut.h>   
@@ -42,7 +38,7 @@ int main (int argc, char *argv[])
 
    
 	if(argc != 2) {
-		cout << "Error. Program executed incorreclty. Please use './<program name> yourBinary.bin'" << endl;
+		cerr << "Error. Program executed incorreclty. Please use './<program name> yourBinary.bin'" << endl;
 	}
    
    cpuSim.readBinaryFile(argv[1]);

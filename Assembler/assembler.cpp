@@ -14,6 +14,9 @@ using namespace std;
 string checkForErrors(vector<vector<string> > instructions);
 vector<string> convertToBinary(vector<vector<string> > instructions);
 
+void printBinaryString(vector<string> binaryData);
+
+
 int main(int argc, char* argv[])
 {
 
@@ -74,6 +77,11 @@ int main(int argc, char* argv[])
    
     vector<string> binaryData = convertToBinary(instructions);
 
+
+
+//PRINTS BINARY STRING FOR TESTING PURPOSES
+    printBinaryString(binaryData);
+    
     
     for (size_t i = 0; i < binaryData.size(); ++i)
     {
@@ -165,6 +173,22 @@ string checkForErrors(vector<vector<string> > instructions)
     return "0";
    }
 }
+
+
+void printBinaryString(vector<string> binaryData)
+{
+for (int i = 0; i < binaryData.size(); ++i)
+    {
+       for (int j = 0; j < binaryData[i].size(); ++j)
+       {
+            cout << binaryData[i][j];
+            if ((j + 1) % 8 == 0)
+                cout << " ";
+       } 
+    }
+}
+
+
 
 vector<string> convertToBinary(vector<vector<string> > instructions)
 {

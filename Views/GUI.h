@@ -1,9 +1,8 @@
 #ifndef GUI_H
 #define GUI_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <iostream>
+#include <string>
 
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
