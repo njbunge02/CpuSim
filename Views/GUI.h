@@ -1,3 +1,6 @@
+#ifndef GUI_H
+#define GUI_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -17,3 +20,4 @@ void display(void);
 void keyboard(unsigned char key, int x, int y);
 
 
+#endif

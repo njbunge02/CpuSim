@@ -12,12 +12,14 @@
 
 #include <math.h>
 #include "../Views/GUI.h"
+#include "CPU.h"
+
 
 using namespace std;
 
 int main (int argc, char *argv[])
 {
-		
+/*		
 	glutInit(&argc, argv); 
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); 
 	glutInitWindowSize(WIDTH,HEIGHT); 
@@ -34,32 +36,20 @@ int main (int argc, char *argv[])
 
 	glutMainLoop();                 // Initialize The Main Loop
 
-	
+*/
 
+   CPU cpuSim;
+
+   
 	if(argc != 2) {
 		cout << "Error. Program executed incorreclty. Please use './<program name> yourBinary.bin'" << endl;
 	}
+   
+   cpuSim.readBinaryFile(argv[1]);
 
-	ifstream file(argv[1]);
-
-	if(!file.is_open()){
-		cerr << "Error: Unable to open the file" << endl;
-		return 1;
-	}
-
-	char buffer[100]; //Assumes a 100 bytes per read
-	while(file.read(buffer, sizeof(buffer))) {
-		cout.write(buffer, file.gcount());
-	}
-
-	if(!file.eof()){
-		cerr << "Error: Failed to read from the file" << endl;
-		return 1;
-	}
 	
-
-
-	file.close();
+    return 0; // Exit successfully
+	
 
    return 0;
 }
