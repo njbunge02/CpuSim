@@ -1,16 +1,33 @@
-CXX = g++
-OPTIONS = -Wall
-PROGRAM = a.out
-EXEC = main.cpp
+## Compiler
+CC=g++
+## Linker
+LD=$(CC)
+## Flags
+PROGRAM = CpuSim
+OBJECTS = Controllers/main.o Views/GPU.o
+CPPFLAGS = -Wall
+LFLAGS = -L/System/Library/Frameworks -framework GLUT -framework OpenGL
 
-all: $(PROGRAM)
+TARGETS = $(PROGFILES:.cpp=)
 
-run: $(PROGRAM)
-	./$(PROGRAM) test4.s output.dat
+PROGFILES = \
+        Controllers/main.cpp Views/GPU.cpp\
+        $(NULL)
 
-$(PROGRAM): $(EXEC)
-	$(CXX) $(OPTIONS) $(EXEC) -o $(PROGRAM) 
+
+all: $(PROGFILES:.cpp=)
+
+run:
+	./$(PROGRAM)
+
+targets default: $(TARGETS)
+
+$(PROGFILES:.cpp=): $(OBJECTS)
+	$(CC) -o CpuSim $(OBJECTS) ${LFLAGS}
+
+depend :
+	makedepend ${PROGFILES}
 
 clean:
-	rm -f $(PROGRAM)
+	rm -f $(PROGRAM) $(OBJECTS)
 
