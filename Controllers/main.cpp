@@ -15,7 +15,7 @@ using namespace std;
 
 int main (int argc, char *argv[])
 {
-/*		
+/*	
 	glutInit(&argc, argv); 
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); 
 	glutInitWindowSize(WIDTH,HEIGHT); 
@@ -42,9 +42,9 @@ int main (int argc, char *argv[])
 	}
    
    cpuSim.readBinaryFile(argv[1]);
+   
 
-	
-    return 0; // Exit successfully
+	cout << cpuSim.getInstrunctionSet() << endl;
 	
 
    return 0;

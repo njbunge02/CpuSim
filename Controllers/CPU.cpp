@@ -9,16 +9,18 @@ int CPU::readBinaryFile(const string filename) {
         return 1; // Exit with error code 1
     }
 
-    /*string line;
-    while (getline(file, line)) { // Read each line from the file
-        cout << line << endl; // Output the line to the console
-    }*/
-
+  
+    //seperates it into instructions
     char byte;
+    int count = 0;
     while (file.read(&byte, 1)) {
-        bitset<8> bits(byte);
+        bitset<8> bits(byte); 
+
+        count += 8;
+        instructionBinary += bits.to_string();
+        if (count % 32 == 0)
+            instructionBinary += ' ';
         
-        cout << bits << ' ';
     }
 
     file.close();

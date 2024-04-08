@@ -6,6 +6,7 @@
 #include <fstream>
 #include <string>
 #include <bitset>
+#include "Memory.h"
 
 using namespace std;
 
@@ -14,17 +15,18 @@ class CPU
 
     private:
     
-    string binaryInstruction;
+    string instructionBinary;
+    //Memory
 
 
     public:
 
-    CPU()
-    {
-        binaryInstruction = "";
-    }
+    CPU(){}
     
     int readBinaryFile(const string filename);
+
+    string getInstrunctionSet() {return instructionBinary;}
+
 
 };
 
