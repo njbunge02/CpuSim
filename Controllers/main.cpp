@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-// #include <OpenGL/gl.h>
-// #include <OpenGL/glu.h>
-// #include <GLUT/glut.h>   
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
+#include <GLUT/glut.h>   
 
 #include <iostream>
 #include <fstream>
@@ -18,23 +18,23 @@ using namespace std;
 int main (int argc, char *argv[])
 {
 		
-	// glutInit(&argc, argv); 
-	// glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); 
-	// glutInitWindowSize(WIDTH,HEIGHT); 
+	glutInit(&argc, argv); 
+	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); 
+	glutInitWindowSize(WIDTH,HEIGHT); 
 	
-	// glutCreateWindow("CPU Simulator");
+	glutCreateWindow("CPU Simulator");
 
 
-	// glutDisplayFunc(display);  
-	// glutIdleFunc(display);
+	glutDisplayFunc(display);  
+	glutIdleFunc(display);
 
 
-	// glutKeyboardFunc(keyboard);
-	// initWindow();				             //create_window
+	glutKeyboardFunc(keyboard);
+	initWindow();				             //create_window
 
-	// glutMainLoop();                 // Initialize The Main Loop
+	glutMainLoop();                 // Initialize The Main Loop
 
-	// return 0;
+	
 
 	if(argc != 2) {
 		cout << "Error. Program executed incorreclty. Please use './<program name> yourBinary.bin'" << endl;
@@ -60,4 +60,6 @@ int main (int argc, char *argv[])
 
 
 	file.close();
+
+   return 0;
 }
