@@ -1,4 +1,4 @@
-#include "GPU.h"
+#include "GUI.h"
 
 float aspect = (float)WIDTH / (float)HEIGHT;
 float nearPlane = 1.0f;

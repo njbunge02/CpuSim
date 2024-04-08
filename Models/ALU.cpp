@@ -1,0 +1,1 @@
+//this will take an instruction string execute any ALU instruction and return its value

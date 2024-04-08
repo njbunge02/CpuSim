@@ -7,7 +7,7 @@
 #include <GLUT/glut.h>   
 
 #include <math.h>
-#include "../Views/GPU.h"
+#include "../Views/GUI.h"
 
 
 
