@@ -109,7 +109,7 @@ string checkForErrors(vector<vector<string> > instructions)
             {
                 if (instructions[i][j] != "lw" && instructions[i][j] != "sw" && instructions[i][j] != "add" && instructions[i][j] != "sub" && \
                 instructions[i][j] != "and" &&instructions[i][j] != "or" && instructions[i][j] != "slt" &&instructions[i][j] != "beq" && \
-                instructions[i][j] != "j")
+                instructions[i][j] != "j" && instructions[i][j] != "addi")
                 {
                     errorSS << "Line " << i + 1 << " has an error " << "(unsupported instruction)" << endl;
                     isError = true;
@@ -294,6 +294,13 @@ vector<string> convertToBinary(vector<vector<string> > instructions)
             target = stoi(instructions[i][1]);
 
             lineDataSS << opCode << target.to_string(); 
+        }
+        // addi - new opcode, grabs the rs, rt and the imm value. The imm value should be 16 bits.
+        else if(instructions[i][0] == "addi"){
+            opCode = "001000";
+            rs = stoi(instructions[i][1].substr(1));
+            rt = stoi(instructions[i][2].substr(1));
+            imm = stoi(instructions[i][3]);
         }
 
         data.push_back(lineDataSS.str());
