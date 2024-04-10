@@ -53,9 +53,70 @@ void Instruction::convertBianryToAssembly()
     } else if (opCode == "101011") //sw
     {
         assemblyTranslation = "sw";
+        assemblyTranslation += " $";
+        assemblyTranslation += to_string(stoi(iInstruct.targetReg, nullptr, 2));
+        assemblyTranslation += ", ";
+        
+        if (iInstruct.imm[0] == '1') //negative
+        {
+            string negNum = iInstruct.imm;
+            int number;
+            for (int i = 0; i < negNum.size(); ++i)
+            {
+                if (negNum[i] == '0')
+                    negNum[i] = '1';
+                else
+                    negNum[i] = '0';
+            }
+            bitset<16> bits(negNum);
+            number= bits.to_ulong() + 1;
+
+            assemblyTranslation += "-" + to_string(number);
+
+        }else
+        {
+            assemblyTranslation += to_string(stoi(iInstruct.imm, nullptr, 2));
+        }
+
+
+
+        assemblyTranslation +="($";
+        assemblyTranslation += to_string(stoi(iInstruct.sourceReg, nullptr, 2));
+        assemblyTranslation += ")";
+
     }else if (opCode == "100011") //lw
     {
         assemblyTranslation = "lw";
+        assemblyTranslation += " $";
+        assemblyTranslation += to_string(stoi(iInstruct.targetReg, nullptr, 2));
+        assemblyTranslation += ", ";
+        
+        if (iInstruct.imm[0] == '1') //negative
+        {
+            string negNum = iInstruct.imm;
+            int number;
+            for (int i = 0; i < negNum.size(); ++i)
+            {
+                if (negNum[i] == '0')
+                    negNum[i] = '1';
+                else
+                    negNum[i] = '0';
+            }
+            bitset<16> bits(negNum);
+            number= bits.to_ulong() + 1;
+
+            assemblyTranslation += "-" + to_string(number);
+
+        }else
+        {
+            assemblyTranslation += to_string(stoi(iInstruct.imm, nullptr, 2));
+        }
+
+
+
+        assemblyTranslation +="($";
+        assemblyTranslation += to_string(stoi(iInstruct.sourceReg, nullptr, 2));
+        assemblyTranslation += ")";
     }else if (opCode == "001000") //addi
     {
         assemblyTranslation = "addi";

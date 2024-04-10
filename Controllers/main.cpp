@@ -52,7 +52,7 @@ int main (int argc, char *argv[])
 
 	string inst = cpuSim.getInstrunctionSet().substr(0,32);
 
-	cout << inst << " " << cpuSim.getInstrunctionSet().size() << endl;
+	
 
 	
 	Memory testMem(cpuSim.getInstrunctionSet());

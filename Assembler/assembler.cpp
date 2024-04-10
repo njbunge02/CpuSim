@@ -80,7 +80,7 @@ int main(int argc, char* argv[])
 
 
 //PRINTS BINARY STRING FOR TESTING PURPOSES
-    printBinaryString(binaryData);
+    //printBinaryString(binaryData);
     
     
     for (size_t i = 0; i < binaryData.size(); ++i)
