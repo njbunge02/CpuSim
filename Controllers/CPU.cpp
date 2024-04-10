@@ -18,8 +18,7 @@ int CPU::readBinaryFile(const string filename) {
 
         count += 8;
         instructionBinary += bits.to_string();
-        if (count % 32 == 0)
-            instructionBinary += ' ';
+    
         
     }
 

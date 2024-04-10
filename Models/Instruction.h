@@ -48,19 +48,29 @@ class Instruction
     R_TYPE rInstruct;
     I_TYPE iInstruct;
     J_TYPE jInstruct;
-   
+
+    string assemblyTranslation;
+
+    void convertBianryToAssembly();
+
     public:
+    
+    Instruction(){}
 
     Instruction(string binaryString)
     {convertBinaryToInstruction(binaryString);}
 
     void convertBinaryToInstruction(string binaryString);
+
     vector<string> getArguments();
     
 
     string getopCode(){return opCode;}
 
-    
+    string getAssemby()
+    {
+        return assemblyTranslation;
+    }
 
 };
 

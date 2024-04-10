@@ -9,6 +9,8 @@
 #include <math.h>
 #include "../Views/GUI.h"
 #include "CPU.h"
+#include "../Models/Instruction.h"
+#include "../Models/Memory.h"
 
 
 using namespace std;
@@ -45,6 +47,18 @@ int main (int argc, char *argv[])
    
 
 	cout << cpuSim.getInstrunctionSet() << endl;
+
+
+
+	string inst = cpuSim.getInstrunctionSet().substr(0,32);
+
+	cout << inst << " " << cpuSim.getInstrunctionSet().size() << endl;
+
+	
+	Memory testMem(cpuSim.getInstrunctionSet());
+
+	cout << testMem.getAssemblyCode() << endl;
+	
 	
 
    return 0;
