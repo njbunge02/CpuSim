@@ -26,3 +26,29 @@ int CPU::readBinaryFile(const string filename) {
 
     return 0;
  }
+
+
+ void CPU::Run()
+ {
+
+ }
+
+
+
+ void CPU::executeNextInstruction()
+ {
+    cout << "Clock cycle: " << "1" << endl;
+    cout << "Instruction Fetch" << endl;
+    Instruction cpuInstruction = instructionFetch();
+    cout << cpuInstruction.getBinaryString() << endl;
+ }
+
+Instruction CPU::instructionFetch()
+{
+   return cpuMemory.getInstruction();
+}
+
+
+
+
+

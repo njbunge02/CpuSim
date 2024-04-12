@@ -36,29 +36,18 @@ int main (int argc, char *argv[])
 
 */
 
-   CPU cpuSim;
 
    
 	if(argc != 2) {
 		cerr << "Error. Program executed incorreclty. Please use './<program name> yourBinary.bin'" << endl;
 	}
+
+
    
-   cpuSim.readBinaryFile(argv[1]);
+   CPU cpu1(argv[1]);
+
+   cpu1.executeNextInstruction();
    
-
-	cout << cpuSim.getInstrunctionSet() << endl;
-
-
-
-	string inst = cpuSim.getInstrunctionSet().substr(0,32);
-
-	
-
-	
-	Memory testMem(cpuSim.getInstrunctionSet());
-
-	cout << testMem.getAssemblyCode() << endl;
-	
 	
 
    return 0;

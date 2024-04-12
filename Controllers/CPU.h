@@ -6,7 +6,9 @@
 #include <fstream>
 #include <string>
 #include <bitset>
-#include "Memory.h"
+#include "../Models/Memory.h"
+#include "../Models/Registers.h"
+#include "../Models/Instruction.h"
 
 using namespace std;
 
@@ -16,17 +18,35 @@ class CPU
     private:
     
     string instructionBinary;
-    //Memory
+    Memory cpuMemory;
 
+    Instruction instructionFetch();
 
     public:
 
     CPU(){}
+
+    CPU(const string filename)
+    {
+        readBinaryFile(filename);
+        
+        Memory tempCPUMemory(instructionBinary);
+        cpuMemory = tempCPUMemory;
     
+    }
+    
+    //updates instructionBinary
     int readBinaryFile(const string filename);
 
     string getInstrunctionSet() {return instructionBinary;}
 
+    void Run();
+
+    void executeNextInstruction();
+
+    //prints all the CPU stats
+    void printCPU();
+  
 
 };
 

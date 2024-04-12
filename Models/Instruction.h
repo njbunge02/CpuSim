@@ -51,26 +51,32 @@ class Instruction
 
     string assemblyTranslation;
 
+
     void convertBianryToAssembly();
 
     public:
-    
+
     Instruction(){}
 
-    Instruction(string binaryString)
-    {convertBinaryToInstruction(binaryString);}
+    Instruction(string inputString)
+    {    
+        convertBinaryToInstruction(inputString);}
 
+
+    //converts a 32bit string of binary to an instruction
     void convertBinaryToInstruction(string binaryString);
 
-    vector<string> getArguments();
-    
+    //returns binary for whole instruction
+    string getBinaryString();
 
+    //returns arguments for that instruction
+    vector<string> decodeInstruction();
+    
+    //returns opCode
     string getopCode(){return opCode;}
 
-    string getAssemby()
-    {
-        return assemblyTranslation;
-    }
+    //returns the instruction in assembly
+    string getAssemby(){return assemblyTranslation;}
 
 };
 

@@ -184,7 +184,7 @@ void Instruction::convertBianryToAssembly()
         assemblyTranslation += ", $";
         assemblyTranslation += to_string(stoi(rInstruct.targetReg, nullptr, 2));  
 
-    }else if (rInstruct.func == "101010") //slt
+    }else //if (rInstruct.func == "101010") slt
     {
         assemblyTranslation = "slt"; 
         assemblyTranslation += " $";
@@ -228,7 +228,35 @@ void Instruction::convertBinaryToInstruction(string binaryString)
 
 }
 
-vector<string> Instruction::getArguments()
+string Instruction::getBinaryString()
+{
+    string arg = "";
+    
+    if (opCode == "000000") //rtype
+    {
+        arg += opCode;
+        arg += rInstruct.sourceReg;
+        arg += rInstruct.targetReg;
+        arg += rInstruct.destReg;
+        arg += rInstruct.shamt;
+        arg += rInstruct.func;
+
+    } else if (opCode == "000010") //jType
+    {
+        arg += opCode;
+        arg += jInstruct.address;
+    }else
+    {
+        arg += opCode;
+        arg += iInstruct.sourceReg;
+        arg += iInstruct.targetReg;
+        arg += iInstruct.imm;
+    }
+
+    return arg;
+}
+
+vector<string> Instruction::decodeInstruction()
 {
 
     vector<string> arg;

@@ -11,10 +11,10 @@ class Memory
 {
     private:
 
-    vector<Instruction> instructionList;
-    string assemblyCode;
+    vector<Instruction> instructionList;    //list of instructions
+    string assemblyCode;    //the entire assembly code
 
-    int pc;
+    int pc; //the program counter
 
 
     public:
@@ -27,14 +27,16 @@ class Memory
         pc = 0;
     }
 
-    void generateAssemblyCode();
+    
 
+    //returns the assemblyCode
     string getAssemblyCode(){return assemblyCode;}
     
 
     //converts a string of 1's and 0's into a list of Instructions
     void convertBinaryToInstructionList(string binaryString);
     
+    //returns the current instruction the pc is on
     Instruction getInstruction()
     {
         if (pc < instructionList.size())
@@ -44,11 +46,13 @@ class Memory
         } 
     }
 
+    //sets program counter
     void setPC (int input)
     {
         pc = input;
     }
 
+    //returns program counter
     int getPC()
     {return pc;}
 
