@@ -45,10 +45,10 @@ int CPU::readBinaryFile(const string filename) {
     cout << cpuInstruction.getAssemby() << endl;
     vector<string> instruction = cpuInstruction.decodeInstruction();
     cout << instruction.size() << endl;
-     for (int i = 0; i < instruction.size(); ++i) {
-        std::cout << instruction[i] << " ";
+    for (int i = 0; i < instruction.size(); ++i) {
+       cout << instruction[i] << " ";
     }
-    std::cout << std::endl;
+    cout << std::endl;
 
     executeALU(instruction);
  }

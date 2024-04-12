@@ -36,13 +36,33 @@ void executeALU(const vector<string> instruction){
 }
 
 void rTypeALU(string opcode, string rs, string rt, string rd, string shamt, string funct){
-    cout << "r-type" << endl;
+    if (funct == "100000"){ // add
+       
+    } else if (funct == "100010") { // sub
+
+    } else if (funct == "100100") { // and
+
+    } else if (funct == "100101"){ // or
+    
+    } else if( funct == "101010"){ //slt
+    
+    }
 }
 
 void iTypeALU(string opcode, string rs, string rt, string imm){
-    cout << "i-type" << endl;
+    if (opcode == "001000"){ //addi 
+    
+    } else if (opcode == "000100"){ // beq
+
+    } else if (opcode == "101011") { //sw
+    
+    } else if (opcode == "100011") { //lw
+    
+    }
 }
 
 void jTypeALU(string opcode, string address){
-    cout << "j-type" << endl;
+    // j is the only J-Type that we have
+
+    // This needs to set PC to the address (I believe)
 }
