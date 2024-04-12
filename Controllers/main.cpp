@@ -11,6 +11,7 @@
 #include "CPU.h"
 #include "../Models/Instruction.h"
 #include "../Models/Memory.h"
+#include "../Views/Console.h"
 
 
 using namespace std;
