@@ -11,6 +11,7 @@
 #include "CPU.h"
 #include "../Models/Instruction.h"
 #include "../Models/Memory.h"
+#include "../Views/Console.h"
 
 
 using namespace std;
@@ -46,7 +47,8 @@ int main (int argc, char *argv[])
    cpuSim.readBinaryFile(argv[1]);
    
 
-	cout << cpuSim.getInstrunctionSet() << endl;
+	//cout << cpuSim.getInstrunctionSet() << endl;
+	printBinary(cpuSim);
 
 
 
@@ -57,8 +59,8 @@ int main (int argc, char *argv[])
 	
 	Memory testMem(cpuSim.getInstrunctionSet());
 
-	cout << testMem.getAssemblyCode() << endl;
-	
+	//cout << testMem.getAssemblyCode() << endl;
+	printAssembly(testMem);
 	
 
    return 0;
