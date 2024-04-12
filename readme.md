@@ -22,3 +22,13 @@ This function takes in a binary file and translates the bits into strings. The r
 
 ### string getInstrunctionSet()
 Returns the valye saved within `instructionBinary`
+
+# Models
+## ALU
+To Be Written
+## Instruction
+## Memory
+## Registers
+# Views
+## Console
+## GUI
