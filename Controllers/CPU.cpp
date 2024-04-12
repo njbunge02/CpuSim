@@ -1,3 +1,4 @@
+#include "../Models/ALU.h"
 #include "CPU.h"
 
 int CPU::readBinaryFile(const string filename) {
@@ -41,6 +42,15 @@ int CPU::readBinaryFile(const string filename) {
     cout << "Instruction Fetch" << endl;
     Instruction cpuInstruction = instructionFetch();
     cout << cpuInstruction.getBinaryString() << endl;
+    cout << cpuInstruction.getAssemby() << endl;
+    vector<string> instruction = cpuInstruction.decodeInstruction();
+    cout << instruction.size() << endl;
+     for (int i = 0; i < instruction.size(); ++i) {
+        std::cout << instruction[i] << " ";
+    }
+    std::cout << std::endl;
+
+    executeALU(instruction);
  }
 
 Instruction CPU::instructionFetch()
