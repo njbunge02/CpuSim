@@ -44,13 +44,13 @@ int CPU::readBinaryFile(const string filename) {
     cout << cpuInstruction.getBinaryString() << endl;
     cout << cpuInstruction.getAssemby() << endl;
     vector<string> instruction = cpuInstruction.decodeInstruction();
-    cout << instruction.size() << endl;
     for (int i = 0; i < instruction.size(); ++i) {
        cout << instruction[i] << " ";
     }
-    cout << std::endl;
+    cout << endl;
 
-    executeALU(instruction);
+    Registers newReg;
+    string result = executeALU(instruction, newReg); // The result of the ALU is returned as a string
  }
 
 Instruction CPU::instructionFetch()

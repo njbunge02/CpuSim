@@ -5,6 +5,8 @@
 #include <vector>
 #include <iostream>
 
+#include "Registers.h"
+
 
 using namespace std;
 
@@ -17,11 +19,10 @@ using namespace std;
 //J_TYPE INSTRUCTIONS
 //opcode	address
 
-
-void executeALU(const vector<string> instruction);
-void jTypeALU(string opcode, string address);
-void iTypeALU(string opcode, string rs, string rt, string imm);
-void rTypeALU(string opcode, string rs, string rt, string rd, string shamt, string funct);
+string executeALU(const vector<string> instruction, Registers registers);
+string jTypeALU(string opcode, string address);
+string iTypeALU(string opcode, string rs, string rt, string imm);
+string rTypeALU(string opcode, string rs, string rt, string rd, string shamt, string funct, Registers registers);
 
 
 #endif

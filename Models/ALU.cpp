@@ -1,4 +1,5 @@
 #include "ALU.h"
+#include "Registers.h"
 //this will take an instruction string execute any ALU instruction and return its value
 
 //R_TYPE INSTRUCTIONS 
@@ -13,7 +14,7 @@
 //PC Changers : j and beq.
 
 // Gathers the instructions to be fed into their corresponding simulation (J-Type, R-Type or I-Type)
-void executeALU(const vector<string> instruction){
+string executeALU(const vector<string> instruction, Registers registers){
     if(instruction.size() == 6) {
         string opcode = instruction[0];
         string rs = instruction[1];
@@ -21,7 +22,7 @@ void executeALU(const vector<string> instruction){
         string rd = instruction[3];
         string shamt = instruction[4];
         string funct = instruction[5];
-        rTypeALU(opcode, rs, rt, rd, shamt, funct);
+        return rTypeALU(opcode, rs, rt, rd, shamt, funct, registers);
     } else if (instruction.size() == 4){
         string opcode = instruction[0];
         string rs = instruction[1];
@@ -35,8 +36,18 @@ void executeALU(const vector<string> instruction){
     }
 }
 
-void rTypeALU(string opcode, string rs, string rt, string rd, string shamt, string funct){
+string rTypeALU(string opcode, string rs, string rt, string rd, string shamt, string funct, Registers registers){
     if (funct == "100000"){ // add
+        int source = stoi(rs, nullptr, 2);
+        int target = stoi(rt, nullptr, 2);
+        int destination = stoi(rd, nullptr, 2);
+
+        int sourceVal = stoi(registers.regVal(source), nullptr, 2);
+        int targetVal = stoi(registers.regVal(target), nullptr, 2);
+
+        int result = sourceVal + targetVal;
+
+        return bitset<32>(result).to_string();
        
     } else if (funct == "100010") { // sub
 
@@ -49,7 +60,7 @@ void rTypeALU(string opcode, string rs, string rt, string rd, string shamt, stri
     }
 }
 
-void iTypeALU(string opcode, string rs, string rt, string imm){
+string iTypeALU(string opcode, string rs, string rt, string imm){
     if (opcode == "001000"){ //addi 
     
     } else if (opcode == "000100"){ // beq
@@ -61,7 +72,7 @@ void iTypeALU(string opcode, string rs, string rt, string imm){
     }
 }
 
-void jTypeALU(string opcode, string address){
+string jTypeALU(string opcode, string address){
     // j is the only J-Type that we have
 
     // This needs to set PC to the address (I believe)

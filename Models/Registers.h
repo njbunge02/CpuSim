@@ -1,9 +1,13 @@
+#ifndef REGISTERS_H
+#define REGISTERS_H
+
 #include <iostream>
 #include <string>
 #include <vector>
 #include <bitset>
 
 #define REGISTER_COUNT 32
+using namespace std;
 
 
 class Registers
@@ -25,6 +29,15 @@ class Registers
         }
     }
 
+    void pushToReg(int dest, string value){
+        bitset<32> stringToBitset(value);
+        registers[dest] = stringToBitset;
+    }
+
+    string regVal(int regNum) { return registers[regNum].to_string(); }
+
 
 
 };
+
+#endif
