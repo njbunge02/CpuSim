@@ -83,7 +83,19 @@ string rTypeALU(string opcode, string rs, string rt, string rd, string shamt, st
 
         return bitset<32>(result).to_string();
     } else if( funct == "101010"){ //slt
-    
+        int source = stoi(rs, nullptr, 2);
+        int target = stoi(rt, nullptr, 2);
+        int destination = stoi(rd, nullptr, 2);
+
+        int sourceVal = stoi(registers.regVal(source), nullptr, 2);
+        int targetVal = stoi(registers.regVal(target), nullptr, 2);
+        int result = 0;
+
+        if (sourceVal < targetVal) {
+            result = 1;
+        }
+
+        return bitset<32>(result).to_string();
     }
 }
 
