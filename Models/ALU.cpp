@@ -28,7 +28,7 @@ string executeALU(const vector<string> instruction, Registers registers){
         string rs = instruction[1];
         string rt = instruction [2];
         string immed = instruction[3];
-        iTypeALU(opcode, rs, rt, immed);
+        iTypeALU(opcode, rs, rt, immed, registers);
     } else if (instruction.size() == 2){
         string opcode = instruction[0];
         string address = instruction[2];
@@ -99,10 +99,19 @@ string rTypeALU(string opcode, string rs, string rt, string rd, string shamt, st
     }
 }
 
-string iTypeALU(string opcode, string rs, string rt, string imm){
+string iTypeALU(string opcode, string rs, string rt, string imm, Registers registers){
     if (opcode == "001000"){ //addi 
-    
-    } else if (opcode == "000100"){ // beq
+        int source = stoi(rs, nullptr, 2);
+        int target = stoi(rt, nullptr, 2);
+        int immediate = stoi(imm, nullptr, 2);
+
+        int targetVal = stoi(registers.regVal(source), nullptr, 2);
+        int immVal = immediate;
+
+        int result = targetVal + immVal;
+
+        return bitset<32>(result).to_string();
+    } else if (opcode == "000100"){ // beq (Updates PC)
 
     } else if (opcode == "101011") { //sw
     

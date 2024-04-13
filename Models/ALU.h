@@ -21,7 +21,7 @@ using namespace std;
 
 string executeALU(const vector<string> instruction, Registers registers);
 string jTypeALU(string opcode, string address);
-string iTypeALU(string opcode, string rs, string rt, string imm);
+string iTypeALU(string opcode, string rs, string rt, string imm, Registers registers);
 string rTypeALU(string opcode, string rs, string rt, string rd, string shamt, string funct, Registers registers);
 
 
