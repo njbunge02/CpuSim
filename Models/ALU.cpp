@@ -50,11 +50,38 @@ string rTypeALU(string opcode, string rs, string rt, string rd, string shamt, st
         return bitset<32>(result).to_string();
        
     } else if (funct == "100010") { // sub
+        int source = stoi(rs, nullptr, 2);
+        int target = stoi(rt, nullptr, 2);
+        int destination = stoi(rd, nullptr, 2);
 
+        int sourceVal = stoi(registers.regVal(source), nullptr, 2);
+        int targetVal = stoi(registers.regVal(target), nullptr, 2);
+
+        int result = sourceVal - targetVal;
+
+        return bitset<32>(result).to_string();
     } else if (funct == "100100") { // and
+        int source = stoi(rs, nullptr, 2);
+        int target = stoi(rt, nullptr, 2);
+        int destination = stoi(rd, nullptr, 2);
 
+        int sourceVal = stoi(registers.regVal(source), nullptr, 2);
+        int targetVal = stoi(registers.regVal(target), nullptr, 2);
+
+        int result = sourceVal & targetVal;
+
+        return bitset<32>(result).to_string();
     } else if (funct == "100101"){ // or
-    
+        int source = stoi(rs, nullptr, 2);
+        int target = stoi(rt, nullptr, 2);
+        int destination = stoi(rd, nullptr, 2);
+
+        int sourceVal = stoi(registers.regVal(source), nullptr, 2);
+        int targetVal = stoi(registers.regVal(target), nullptr, 2);
+
+        int result = sourceVal | targetVal;
+
+        return bitset<32>(result).to_string();
     } else if( funct == "101010"){ //slt
     
     }
