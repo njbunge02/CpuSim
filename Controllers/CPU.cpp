@@ -37,10 +37,13 @@ int CPU::readBinaryFile(const string filename) {
 
  void CPU::executeNextInstruction()
  {
-    cout << "Clock cycle: " << "1" << endl << endl;
+
+   pcUpdateValue = 0;
 
 
     //Instruction Fetch
+   cout << "Clock cycle: " << clockCycle << endl << endl;
+   clockCycle += 1;
    cout << "Instruction Fetch" << endl;
    cout << "-----------------" << endl;
    Instruction cpuInstruction = instructionFetch();  
@@ -53,6 +56,8 @@ int CPU::readBinaryFile(const string filename) {
   
 
    //Instruction Decode
+   cout << "Clock cycle: " << clockCycle << endl << endl;
+    clockCycle += 1;
    cout << "Instruction Decode" << endl;
    cout << "-----------------" << endl;
    vector<string> instruction = cpuInstruction.decodeInstruction();
@@ -66,12 +71,26 @@ int CPU::readBinaryFile(const string filename) {
    
    if (ALUMux)
    {
+   cout << "Clock cycle: " << clockCycle << endl << endl;
+    clockCycle += 1;
    cout << "Execute" << endl;
    cout << "-----------------" << endl;
    cout << result.substr(12,32) << "\n\n\n";
+   } else if (result == "1" && instruction[0] == "000100") //beq and equal
+   {
+      pcMUX = true;
+      pcUpdateValue = stoi(result.substr(2));
+   } else if (instruction[0] == "000010") // j
+   {
+      pcMUX = true;
+      pcUpdateValue = stoi(result);
    }
 
+   
+
    //MemoryAccess
+   cout << "Clock cycle: " << clockCycle << endl << endl;
+    clockCycle += 1;
    cout << "Memory Access" << endl;
    cout << "-----------------" << endl;
 
@@ -81,6 +100,8 @@ int CPU::readBinaryFile(const string filename) {
 
    //WriteBack
    writeBack(newReg);
+   cout << "Clock cycle: " << clockCycle << endl << endl;
+    clockCycle += 1;
    cout << "WriteBack" << endl;
    cout << "-----------------" << endl;
    cout << result << "\n\n\n";
@@ -141,7 +162,6 @@ if (opCode == "000000" || opCode == "001000")//RTYPE & addi
 } else
 {
    cout << "INVALID OPCODE\n";
-   
 }
 
 }
@@ -149,7 +169,12 @@ if (opCode == "000000" || opCode == "001000")//RTYPE & addi
 
 void CPU::updatePC()
 {
-   cpuMemory.updatePC(4);
+   if (!pcMUX)
+      cpuMemory.updatePC(4);
+   else
+   {
+      cpuMemory.updatePC(pcUpdateValue);
+   }
 }
 
 

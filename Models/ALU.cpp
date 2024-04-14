@@ -31,8 +31,8 @@ string executeALU(const vector<string> instruction, Registers& registers){
         return iTypeALU(opcode, rs, rt, immed, registers);
     } else if (instruction.size() == 2){
         string opcode = instruction[0];
-        string address = instruction[2];
-        return jTypeALU(opcode, address);
+        string address = instruction[1];
+        return jTypeALU(address);
     }
 }
 
@@ -145,12 +145,15 @@ string iTypeALU(string opcode, string rs, string rt, string imm, Registers& regi
     int val2 = stoi(registers.regVal(source), nullptr, 2);
     int val1 = stoi(registers.regVal(target), nullptr, 2);
 
+    string outputString; 
     if (val1 == val2)
     {
-        return "1";
+        outputString = "1 " + to_string(immediate);
+        return outputString;
     } else
     {
-        return "0";
+        outputString = "0 " + to_string(immediate);
+        return outputString;
     }
 
     } else if (opcode == "101011") { //sw
@@ -160,8 +163,8 @@ string iTypeALU(string opcode, string rs, string rt, string imm, Registers& regi
     }
 }
 
-string jTypeALU(string opcode, string address){
+string jTypeALU(string address){
     // j is the only J-Type that we have
 
-    // This needs to set PC to the address (I believe)
+    return address;
 }

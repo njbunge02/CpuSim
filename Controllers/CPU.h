@@ -27,13 +27,15 @@ class CPU
     bool ALUMux;
     bool pcMUX;
 
+    int clockCycle;
+    int pcUpdateValue;
 
     Instruction instructionFetch();
 
     public:
 
     CPU(){
-  
+    clockCycle = 1;
     }
 
     CPU(const string filename)
@@ -42,6 +44,7 @@ class CPU
         
         Memory tempCPUMemory(instructionBinary);
         cpuMemory = tempCPUMemory;
+        clockCycle = 1;
     
     }
     
