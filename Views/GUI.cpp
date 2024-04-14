@@ -10,6 +10,7 @@ bool drawStep = true;
 using namespace std;
 
 CPU cpuGlobal;
+string outputString = "";
 
 void initCPU(string filename)
 {
@@ -21,9 +22,9 @@ cpuGlobal = cpu1;
 void stepRun()
 {
 	cpuGlobal.executeNextInstruction();
-   cpuGlobal.executeNextInstruction();
-	cpuGlobal.executeNextInstruction();
    cpuGlobal.printAllRegisters();
+   outputString += "pressed\n";
+
 }
 
 void cpuRun()
@@ -37,7 +38,13 @@ void renderBitmapString(float x, float y, void *font, const char *string) {
     const char *c;
     glRasterPos2f(x, y);
     for (c = string; *c != '\0'; c++) {
-        glutBitmapCharacter(font, *c);
+        if (*c == '\n') {
+            // Move cursor to the beginning of the next line
+            y += 0.05f;
+            glRasterPos2f(x, y);
+        } else {
+            glutBitmapCharacter(font, *c);
+        }
     }
 }
 
@@ -93,7 +100,7 @@ void mouse(int button, int state, int x, int y) {
 
 // Function to draw the button
 void drawStepButton() {
- glColor3f(1.0f, 0.0f, 0.0f); // Red color
+ glColor3f(1.0f, 1.0f, 1.0f); // Red color
     glBegin(GL_QUADS);
     glVertex2f(boxLeft, boxBottom); // Bottom left corner
     glVertex2f(boxRight, boxBottom);  // Bottom right corner
@@ -103,7 +110,7 @@ void drawStepButton() {
 }
 
 void drawRunButton() {
- glColor3f(0.0f, 0.0f, 1.0f); // blue color
+ glColor3f(1.0f, 1.0f, 1.0f); // blue color
     glBegin(GL_QUADS);
     glVertex2f(boxLeft2, boxBottom2); // Bottom left corner
     glVertex2f(boxRight2, boxBottom2);  // Bottom right corner
@@ -156,7 +163,11 @@ void display(void)
   if (drawStep)
    drawStepButton();
   
-   //renderBitmapString(0.0f, 0.0f, GLUT_BITMAP_HELVETICA_18, "CPU GUI Test");
+  char outputChar[outputString.size() + 1]; 
+   strcpy(outputChar, outputString.c_str());
+   renderBitmapString(-0.35f, -0.345f, GLUT_BITMAP_HELVETICA_18, "Step Execution");
+   renderBitmapString(0.22f, -0.345f, GLUT_BITMAP_HELVETICA_18, "Run");
+   renderBitmapString(0.0f, 0.0f, GLUT_BITMAP_HELVETICA_18, outputChar);
 
    glFlush();            
    glutSwapBuffers();
