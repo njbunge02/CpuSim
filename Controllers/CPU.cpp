@@ -35,9 +35,9 @@ int CPU::readBinaryFile(const string filename) {
 
 
 
- void CPU::executeNextInstruction()
+ string CPU::executeNextInstruction()
  {
-
+   stringstream returnString;
    pcUpdateValue = 0;
 
 
@@ -48,6 +48,7 @@ int CPU::readBinaryFile(const string filename) {
    cout << "-----------------" << endl;
    Instruction cpuInstruction = instructionFetch();  
    cout << "Instruction Binary: " << cpuInstruction.getBinaryString() << "\n\n\n";
+
 
 
    //MIPS Controller
@@ -63,7 +64,8 @@ int CPU::readBinaryFile(const string filename) {
    vector<string> instruction = cpuInstruction.decodeInstruction();
    cout << "Assembly Code: " << cpuInstruction.getAssemby() << "\n\n\n";
    
-
+   
+  
 
    //Execute
    Registers newReg = reg;
@@ -76,6 +78,9 @@ int CPU::readBinaryFile(const string filename) {
    cout << "Execute" << endl;
    cout << "-----------------" << endl;
    cout << result.substr(12,32) << "\n\n\n";
+
+
+
    } else if (result == "1" && instruction[0] == "000100") //beq and equal
    {
       pcMUX = true;
@@ -99,17 +104,24 @@ int CPU::readBinaryFile(const string filename) {
     clockCycle += 1;
    cout << "Memory Access" << endl;
    cout << "-----------------" << endl;
-   
+
+
     if (instruction[0] == "100011") //lw
     {
       cout << "Register where data is stored: " << result.substr(33) << endl;
       cout << "The data: " << cpuMemory.retrieveMemory(result.substr(0,32)) << endl;
       cout << "Address Accessed: " << result.substr(0, 32) << endl;
+
+ 
+
       newReg.pushToReg(stoi(result.substr(33)),stoi(cpuMemory.retrieveMemory(result.substr(0,32)), nullptr, 2));
     } else
     {
       cout << "Address Location: " << result.substr(0,32) << endl;
       cout << "Data to be stored: " << result.substr(33) << endl;
+
+     
+
       cpuMemory.putInMemory(result.substr(0,32),  result.substr(33));
 
     }
@@ -129,14 +141,26 @@ int CPU::readBinaryFile(const string filename) {
     clockCycle += 1;
    cout << "WriteBack" << endl;
    cout << "-----------------" << endl;
+
+
+
+
    if (instruction[0] == "100011")
    {
       cout <<  cpuMemory.retrieveMemory(result.substr(0,32)) << " written to register " <<result.substr(33) << "\n\n\n";
+      
    } else
       cout << result << "\n\n\n";
+    
    }
 
    updatePC();
+
+
+   returnString << "Instruction Fetch\n";
+   returnString << "Test\n";
+
+   return returnString.str();
    
  }
 

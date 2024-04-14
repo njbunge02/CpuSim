@@ -7,10 +7,16 @@ float farPlane = 1000.0f;
 float fov = 60.0f;
 bool drawStep = true;
 
+ int newLineCount = 0;
+ float programY = -0.2f;
+
+
 using namespace std;
 
 CPU cpuGlobal;
 string outputString = "";
+string registerString = "";
+string statsString = "";
 
 void initCPU(string filename)
 {
@@ -19,13 +25,24 @@ cpuGlobal = cpu1;
 }
 
 
+
 void stepRun()
 {
-	cpuGlobal.executeNextInstruction();
+   string outLog = "";
+	outLog = cpuGlobal.executeNextInstruction();
    cpuGlobal.printAllRegisters();
-   outputString += "pressed\n";
+   outputString += "----------\n" + outLog + "\n----------\n";
 
-}
+   programY = -0.2f;
+   for (int i = 0; i < outputString.size(); ++i)
+   {
+      if (outputString[i] == '\n')
+      {
+         programY += 0.05f;
+      }
+   }
+
+}  
 
 void cpuRun()
 {
@@ -41,6 +58,34 @@ void renderBitmapString(float x, float y, void *font, const char *string) {
         if (*c == '\n') {
             // Move cursor to the beginning of the next line
             y += 0.05f;
+            glRasterPos2f(x, y);
+        } else {
+            glutBitmapCharacter(font, *c);
+        }
+    }
+}
+
+void renderBitmapProgramString(float x, float y, void *font, const char *string) {
+    const char *c;
+    glRasterPos2f(x, y);
+    for (c = string; *c != '\0'; c++) {
+        if (*c == '\n') {
+            // Move cursor to the beginning of the next line
+            y -= 0.05f;
+            glRasterPos2f(x, y);
+        } else {
+            glutBitmapCharacter(font, *c);
+        }
+    }
+}
+
+void renderBitmapRegisterString(float x, float y, void *font, const char *string) {
+    const char *c;
+    glRasterPos2f(x, y);
+    for (c = string; *c != '\0'; c++) {
+        if (*c == '\n') {
+            // Move cursor to the beginning of the next line
+            y += 0.025f;
             glRasterPos2f(x, y);
         } else {
             glutBitmapCharacter(font, *c);
@@ -86,14 +131,25 @@ void mouse(int button, int state, int x, int y) {
    
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
         // Check if mouse coordinates fall within the boundaries of the first box
-        if (mouseX  >= -0.321875f && mouseX  <= -0.164062f && mouseY >= -0.780556f && mouseY <= -0.611111f) { //left box step execution
+        if (mouseX  >= -0.321875f && mouseX  <= -0.164062f && mouseY >= -0.780556f && mouseY <= -0.611111f && drawStep) { //left box step execution
             stepRun();
         }
         // Check if mouse coordinates fall within the boundaries of the second box
-        if (mouseX >= 0.167187 && mouseX <= 0.325f && mouseY >= -0.775f && mouseY <= 0.-0.613889f) {  //right run
+        if (mouseX >= 0.167187 && mouseX <= 0.325f && mouseY >= -0.775f && mouseY <= -0.613889f) {  //right run
             drawStep = false;
             cpuRun();
         }  
+
+         
+         if (mouseX >= -0.839063f && mouseX <= -0.71875f && mouseY >= -0.491667 && mouseY <= -0.386111f) {  //right run
+            cout << "UP" << endl;
+        }  
+
+         if (mouseX >= -0.639063f && mouseX <= -0.526563 && mouseY >= -0.486111 && mouseY <= -0.388889f) {  //right run
+            cout << "DOWN" << endl;
+        }  
+
+
     }
 }
 
@@ -109,6 +165,7 @@ void drawStepButton() {
     glEnd();
 }
 
+
 void drawRunButton() {
  glColor3f(1.0f, 1.0f, 1.0f); // blue color
     glBegin(GL_QUADS);
@@ -116,6 +173,44 @@ void drawRunButton() {
     glVertex2f(boxRight2, boxBottom2);  // Bottom right corner
     glVertex2f(boxRight2, boxTop2);   // Top right corner
     glVertex2f(boxLeft2, boxTop2);  // Top left corner
+    glEnd();
+}
+
+float boxX4 = -0.8f;
+float boxY4 = -0.25f;
+float scale4 = 1.0f;
+
+float boxLeft4 = (-0.06f + boxX4) * scale4;
+float boxRight4 = (0.06f + boxX4) * scale4;
+float boxBottom4 = (-0.03f + boxY4) * scale4;
+float boxTop4 = (0.03f + boxY4) * scale4;
+
+void drawUpButton() {
+ glColor3f(1.0f, 1.0f, 1.0f); // blue color
+    glBegin(GL_QUADS);
+    glVertex2f(boxLeft4, boxBottom4); // Bottom left corner
+    glVertex2f(boxRight4, boxBottom4);  // Bottom right corner
+    glVertex2f(boxRight4, boxTop4);   // Top right corner
+    glVertex2f(boxLeft4, boxTop4);  // Top left corner
+    glEnd();
+}
+
+
+float boxX3 = -0.6f;
+float boxY3 = -0.25f;
+float scale3 = 1.0f;
+
+float boxLeft3 = (-0.06f + boxX3) * scale3;
+float boxRight3 = (0.06f + boxX3) * scale3;
+float boxBottom3 = (-0.03f + boxY3) * scale3;
+float boxTop3 = (0.03f + boxY3) * scale3;
+void drawDownButton() {
+ glColor3f(1.0f, 1.0f, 1.0f); // blue color
+    glBegin(GL_QUADS);
+    glVertex2f(boxLeft3, boxBottom3); // Bottom left corner
+    glVertex2f(boxRight3, boxBottom3);  // Bottom right corner
+    glVertex2f(boxRight3, boxTop3);   // Top right corner
+    glVertex2f(boxLeft3, boxTop3);  // Top left corner
     glEnd();
 }
 
@@ -162,12 +257,39 @@ void display(void)
    drawRunButton();
   if (drawStep)
    drawStepButton();
+
+drawUpButton();
+drawDownButton();
   
   char outputChar[outputString.size() + 1]; 
    strcpy(outputChar, outputString.c_str());
    renderBitmapString(-0.35f, -0.345f, GLUT_BITMAP_HELVETICA_18, "Step Execution");
    renderBitmapString(0.22f, -0.345f, GLUT_BITMAP_HELVETICA_18, "Run");
-   renderBitmapString(0.0f, 0.0f, GLUT_BITMAP_HELVETICA_18, outputChar);
+
+   renderBitmapString(-0.85f, -0.2f, GLUT_BITMAP_HELVETICA_18, "Up");
+   renderBitmapString(-0.65f, -0.2f, GLUT_BITMAP_HELVETICA_18, "Down");
+
+
+  
+   renderBitmapProgramString(-0.95f, programY, GLUT_BITMAP_HELVETICA_10, outputChar);
+
+  
+
+   registerString = cpuGlobal.getRegisterString();
+
+
+   char registerChar[registerString.size() + 1]; 
+   strcpy(registerChar, registerString.c_str());
+
+
+   renderBitmapRegisterString(0.45f, -0.4f, GLUT_BITMAP_HELVETICA_10, registerChar);
+
+
+   statsString = cpuGlobal.getStatsString();
+
+   char statsChar[statsString.size() + 1]; 
+   strcpy(statsChar, statsString.c_str());
+   renderBitmapString(-0.3f, 0.0f, GLUT_BITMAP_HELVETICA_18, statsChar);
 
    glFlush();            
    glutSwapBuffers();

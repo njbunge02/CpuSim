@@ -6,6 +6,7 @@
 #include <fstream>
 #include <string>
 #include <bitset>
+#include <sstream>
 #include "../Models/Memory.h"
 #include "../Models/Registers.h"
 #include "../Models/Instruction.h"
@@ -55,7 +56,7 @@ class CPU
 
     void Run();
 
-    void executeNextInstruction();
+    string executeNextInstruction();
 
     //prints all the CPU stats
     void printCPU();
@@ -75,6 +76,36 @@ class CPU
             cout << "Register " + to_string(i) + ": ";
             cout << reg.regVal(i) << endl;
         }
+    }
+
+    string getRegisterString()
+    {
+        string registerString = "";
+     
+        for (int i = 31; i >= 0; --i)
+        {
+        if (i < 10)
+            registerString += "Register " + to_string(i) + ":   " + reg.regVal(i) + "\n";
+        else 
+            registerString += "Register " + to_string(i) + ": " + reg.regVal(i) + "\n";
+        }
+        registerString += "Register Contents: \n";
+
+        return registerString;
+    }
+
+    string getStatsString()
+    {
+        string outputString = "";
+
+        outputString += "Number of ALU operations: \n";
+        outputString += "Number of memory updates: \n";
+        outputString += "Number of register updates: \n";
+        outputString += "Number of PC updates: \n";
+        outputString += "Number of cycles: \n";
+        outputString += "CPU Stats: \n";
+
+        return outputString;
     }
 
 
