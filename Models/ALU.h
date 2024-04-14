@@ -19,6 +19,11 @@ using namespace std;
 //J_TYPE INSTRUCTIONS
 //opcode	address
 
+
+
+
+extern int aluOps;
+
 string executeALU(const vector<string> instruction, Registers& registers);
 string jTypeALU(string address);
 string iTypeALU(string opcode, string rs, string rt, string imm, Registers& registers);

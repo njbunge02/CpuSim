@@ -14,6 +14,8 @@
 //PC Changers : j and beq.
 
 // Gathers the instructions to be fed into their corresponding simulation (J-Type, R-Type or I-Type)
+int aluOps = 0;
+
 string executeALU(const vector<string> instruction, Registers& registers){
     if(instruction.size() == 6) {
         string opcode = instruction[0];
@@ -37,6 +39,8 @@ string executeALU(const vector<string> instruction, Registers& registers){
 }
 
 string rTypeALU(string opcode, string rs, string rt, string rd, string shamt, string funct, Registers& registers){
+    aluOps += 1;
+
     if (funct == "100000"){ // add
         int source = stoi(rs, nullptr, 2);
         int target = stoi(rt, nullptr, 2);
@@ -121,6 +125,8 @@ string rTypeALU(string opcode, string rs, string rt, string rd, string shamt, st
 
 string iTypeALU(string opcode, string rs, string rt, string imm, Registers& registers){
     if (opcode == "001000"){ //addi 
+        aluOps += 1;
+
         int source = stoi(rs, nullptr, 2);
         int target = stoi(rt, nullptr, 2);
         int immediate = stoi(imm, nullptr, 2);

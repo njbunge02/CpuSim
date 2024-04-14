@@ -17,23 +17,37 @@ class Memory
 
     unordered_map<string, string> hardDrive;
 
+    int updates;
+    int accesses;
+
 
     int pc; //the program counter
 
 
     public:
 
-    Memory(){pc = 0;}
+    Memory(){
+    pc = 0;
+    updates = 0;
+    accesses = 0;}
 
     Memory(string binaryString)
     {
         convertBinaryToInstructionList(binaryString);
         pc = 0;
+         updates = 0;
+    accesses = 0;
     }
 
     
+    int getUpdates()
+    {return updates;}
 
-    //returns the assemblyCode
+    int getAccesses()
+    {
+        return accesses;
+    }
+   //returns the assemblyCode
     string getAssemblyCode(){return assemblyCode;}
     
 
@@ -59,6 +73,7 @@ class Memory
     //updates pc
     void updatePC(int input)
     {
+        updates += 1;
         pc += input;
     }
 
@@ -69,14 +84,18 @@ class Memory
 
     string retrieveMemory(string location)
     {
+        
+        accesses += 1;
         return hardDrive[location];
     }
 
     void putInMemory(string location, string contents)
     {
+     
         hardDrive[location] = contents;
     }
 
+  
 };
 
 #endif

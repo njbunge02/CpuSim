@@ -30,13 +30,16 @@ class CPU
 
     int clockCycle;
     int pcUpdateValue;
-
+    int pcUpdates;
+ 
     Instruction instructionFetch();
 
     public:
 
     CPU(){
     clockCycle = 1;
+    pcUpdates = 0;
+
     }
 
     CPU(const string filename)
@@ -46,6 +49,8 @@ class CPU
         Memory tempCPUMemory(instructionBinary);
         cpuMemory = tempCPUMemory;
         clockCycle = 1;
+        pcUpdates = 0;
+    
     
     }
     
@@ -98,11 +103,13 @@ class CPU
     {
         string outputString = "";
 
-        outputString += "Number of ALU operations: \n";
-        outputString += "Number of memory updates: \n";
-        outputString += "Number of register updates: \n";
-        outputString += "Number of PC updates: \n";
-        outputString += "Number of cycles: \n";
+        outputString += "Number of ALU operations: " + to_string(aluOps) +"\n";
+        outputString += "Number of memory updates: " + to_string(cpuMemory.getUpdates())+"\n";
+    
+
+        outputString += "Number of register updates: " + to_string(reg.getRegisterUpdateCount()) +"\n";
+        outputString += "Number of PC updates: "+ to_string(pcUpdates) +"\n";
+        outputString += "Number of cycles: " + to_string(clockCycle - 1) + "\n";
         outputString += "CPU Stats: \n";
 
         return outputString;

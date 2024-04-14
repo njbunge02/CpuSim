@@ -121,7 +121,7 @@ int CPU::readBinaryFile(const string filename) {
       cout << "Data to be stored: " << result.substr(33) << endl;
 
      
-
+      
       cpuMemory.putInMemory(result.substr(0,32),  result.substr(33));
 
     }
@@ -226,6 +226,7 @@ if (opCode == "000000" || opCode == "001000")//RTYPE & addi
 
 void CPU::updatePC()
 {
+   pcUpdates += 1;
    if (!pcMUX)
       cpuMemory.updatePC(0);
    else

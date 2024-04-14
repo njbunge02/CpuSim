@@ -314,7 +314,7 @@ drawDownButton();
 
    statsString = cpuGlobal.getStatsString();
 
-   char statsChar[statsString.size() + 1]; 
+   char statsChar[statsString.size()]; 
    strcpy(statsChar, statsString.c_str());
    renderBitmapString(-0.3f, 0.0f, GLUT_BITMAP_HELVETICA_18, statsChar);
 

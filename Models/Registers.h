@@ -15,11 +15,13 @@ class Registers
     private:
     
     vector<bitset<32> > registers;
+    int registerUpdates;
 
     public:
 
     Registers()
     {
+        registerUpdates = 0;
         string bits32(32, '0');
  
      
@@ -36,11 +38,17 @@ class Registers
         bitset<32> stringToBitset(value);
    
         registers[dest] = stringToBitset;
+        registerUpdates += 1;
 
     }
 
     string regVal(int regNum) { return registers[regNum].to_string(); }
 
+    int getRegisterUpdateCount()
+    {
+        return registerUpdates;
+    }
 };
+
 
 #endif
