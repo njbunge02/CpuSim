@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 #include "Instruction.h"
 
 using namespace std;
@@ -13,6 +14,9 @@ class Memory
 
     vector<Instruction> instructionList;    //list of instructions
     string assemblyCode;    //the entire assembly code
+
+    unordered_map<string, string> hardDrive;
+
 
     int pc; //the program counter
 
@@ -61,6 +65,17 @@ class Memory
     //returns program counter
     int getPC()
     {return pc;}
+
+
+    string retrieveMemory(string location)
+    {
+        return hardDrive[location];
+    }
+
+    void putInMemory(string location, string contents)
+    {
+        hardDrive[location] = contents;
+    }
 
 };
 

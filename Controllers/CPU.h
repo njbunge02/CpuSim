@@ -68,6 +68,17 @@ class CPU
     //updates PC
     void updatePC();
 
+    void printAllRegisters()
+    {
+        for (int i = 0; i < 32; ++i)
+        {
+            cout << "Register " + to_string(i) + ": ";
+            cout << reg.regVal(i) << endl;
+        }
+    }
+
+
+
 
   
 

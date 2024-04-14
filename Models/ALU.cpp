@@ -158,8 +158,46 @@ string iTypeALU(string opcode, string rs, string rt, string imm, Registers& regi
 
     } else if (opcode == "101011") { //sw
     
+
+    int wordToStore = stoi(rt, nullptr, 2);
+    int addressToStore = stoi(rs, nullptr, 2);
+    int im = stoi(imm, nullptr, 2);
+    
+    int wordToStoreVal = stoi(registers.regVal(wordToStore), nullptr, 2);
+
+    int targetVal = stoi(registers.regVal(addressToStore), nullptr, 2);
+    int result = im + targetVal;
+
+     string outputString = "";
+
+    //location to store binary * the binary to be stored
+     outputString = bitset<32>(result).to_string() + "*" + bitset<32>(wordToStoreVal).to_string();
+    
+
+        return outputString;
+
     } else if (opcode == "100011") { //lw
     
+
+    int target = stoi(rs, nullptr, 2);
+    int dest = stoi(rt, nullptr, 2);
+    int im = stoi(imm, nullptr, 2);
+
+
+    int targetVal = stoi(registers.regVal(target), nullptr, 2);
+    int result = im + targetVal;
+
+     string outputString = "";
+    
+    //the address to get the data * the index of register to store it in
+    outputString = bitset<32>(result).to_string() + "*" + to_string(dest);
+   
+
+     return outputString; 
+
+    } else
+    {
+        cout << "INVALID OPCODE ALU\n";
     }
 }
 

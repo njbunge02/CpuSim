@@ -84,28 +84,57 @@ int CPU::readBinaryFile(const string filename) {
    {
       pcMUX = true;
       pcUpdateValue = stoi(result);
+   } 
+    else if (instruction[0] == "100011") //sw
+   {
+
    }
 
    
 
    //MemoryAccess
+   if (memoryAccessMux)
+   {
    cout << "Clock cycle: " << clockCycle << endl << endl;
     clockCycle += 1;
    cout << "Memory Access" << endl;
    cout << "-----------------" << endl;
+   
+    if (instruction[0] == "100011") //lw
+    {
+      cout << "Register where data is stored: " << result.substr(33) << endl;
+      cout << "The data: " << cpuMemory.retrieveMemory(result.substr(0,32)) << endl;
+      cout << "Address Accessed: " << result.substr(0, 32) << endl;
+      newReg.pushToReg(stoi(result.substr(33)),stoi(cpuMemory.retrieveMemory(result.substr(0,32)), nullptr, 2));
+    } else
+    {
+      cout << "Address Location: " << result.substr(0,32) << endl;
+      cout << "Data to be stored: " << result.substr(33) << endl;
+      cpuMemory.putInMemory(result.substr(0,32),  result.substr(33));
 
+    }
+      
+      
    cout << "\n\n\n";
 
+   }
 
 
    //WriteBack
+   
    writeBack(newReg);
+   if (writeBackMux)
+   {
    cout << "Clock cycle: " << clockCycle << endl << endl;
     clockCycle += 1;
    cout << "WriteBack" << endl;
    cout << "-----------------" << endl;
-   cout << result << "\n\n\n";
-
+   if (instruction[0] == "100011")
+   {
+      cout <<  cpuMemory.retrieveMemory(result.substr(0,32)) << " written to register " <<result.substr(33) << "\n\n\n";
+   } else
+      cout << result << "\n\n\n";
+   }
 
    updatePC();
    
@@ -142,7 +171,11 @@ if (opCode == "000000" || opCode == "001000")//RTYPE & addi
 } else if (opCode == "101011"  || opCode == "100011") //lw & sw
 {
    memoryAccessMux = true;
-   writeBackMux = true;
+    writeBackMux = false;
+
+   if (opCode == "100011")
+      {writeBackMux = true;}
+
    ALUMux = false;
    pcMUX = false;
 
@@ -170,11 +203,12 @@ if (opCode == "000000" || opCode == "001000")//RTYPE & addi
 void CPU::updatePC()
 {
    if (!pcMUX)
-      cpuMemory.updatePC(4);
+      cpuMemory.updatePC(0);
    else
    {
       cpuMemory.updatePC(pcUpdateValue);
    }
+   
 }
 
 

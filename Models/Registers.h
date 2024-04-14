@@ -41,8 +41,6 @@ class Registers
 
     string regVal(int regNum) { return registers[regNum].to_string(); }
 
-
-
 };
 
 #endif

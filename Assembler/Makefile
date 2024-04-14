@@ -5,7 +5,7 @@ PROGRAM = assembler.out
 all: $(PROGRAM)
 
 run: $(PROGRAM)
-	./$(PROGRAM) test4.s output.bin
+	./$(PROGRAM) test5.s output.bin
 
 $(PROGRAM): assembler.cpp
 	$(CXX) $(OPTIONS) assembler.cpp -o $(PROGRAM) 
