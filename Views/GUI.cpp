@@ -143,10 +143,15 @@ void mouse(int button, int state, int x, int y) {
          
          if (mouseX >= -0.839063f && mouseX <= -0.71875f && mouseY >= -0.491667 && mouseY <= -0.386111f) {  //right run
             cout << "UP" << endl;
+            programY += 0.05f;
         }  
 
          if (mouseX >= -0.639063f && mouseX <= -0.526563 && mouseY >= -0.486111 && mouseY <= -0.388889f) {  //right run
             cout << "DOWN" << endl;
+            
+             if (programY > -0.15f)
+               programY -= 0.05;
+           
         }  
 
 
@@ -173,6 +178,26 @@ void drawRunButton() {
     glVertex2f(boxRight2, boxBottom2);  // Bottom right corner
     glVertex2f(boxRight2, boxTop2);   // Top right corner
     glVertex2f(boxLeft2, boxTop2);  // Top left corner
+    glEnd();
+}
+
+
+float boxX5 = -0.25f;
+float boxY5 = -0.46f;
+float scale5 = 1.0f;
+
+float boxLeft5 = (-1 + boxX5) * scale5;
+float boxRight5 = (0.4f + boxX5) * scale5;
+float boxBottom5 = (-0.3f + boxY5) * scale5;
+float boxTop5 = (0.3f + boxY5) * scale5;
+
+void drawBlackBox() {
+ glColor3f(0.0f, 0.0f, 0.0f); // blue color
+    glBegin(GL_QUADS);
+    glVertex2f(boxLeft5, boxBottom5); // Bottom left corner
+    glVertex2f(boxRight5, boxBottom5);  // Bottom right corner
+    glVertex2f(boxRight5, boxTop5);   // Top right corner
+    glVertex2f(boxLeft5, boxTop5);  // Top left corner
     glEnd();
 }
 
@@ -254,6 +279,9 @@ void display(void)
 
    glutPostRedisplay();   
    
+
+
+
    drawRunButton();
   if (drawStep)
    drawStepButton();
@@ -271,9 +299,8 @@ drawDownButton();
 
 
   
-   renderBitmapProgramString(-0.95f, programY, GLUT_BITMAP_HELVETICA_10, outputChar);
-
   
+
 
    registerString = cpuGlobal.getRegisterString();
 
@@ -290,6 +317,13 @@ drawDownButton();
    char statsChar[statsString.size() + 1]; 
    strcpy(statsChar, statsString.c_str());
    renderBitmapString(-0.3f, 0.0f, GLUT_BITMAP_HELVETICA_18, statsChar);
+
+
+  drawBlackBox();
+
+   glColor3f(1.0f, 1.0f, 1.0f); 
+  renderBitmapProgramString(-0.95f, programY, GLUT_BITMAP_HELVETICA_10, outputChar);
+ 
 
    glFlush();            
    glutSwapBuffers();
