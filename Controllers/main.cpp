@@ -11,14 +11,28 @@
 #include "CPU.h"
 #include "../Models/Instruction.h"
 #include "../Models/Memory.h"
-#include "../Views/Console.h"
+
+
 
 
 using namespace std;
 
+void mouse(int button, int state, int x, int y);
+void initCPU(string filename);
+
+
 int main (int argc, char *argv[])
 {
-/*	
+
+	
+	if(argc != 2) {
+		cerr << "Error. Program executed incorreclty. Please use './<program name> yourBinary.bin'" << endl;
+	}
+
+
+	initCPU(argv[1]);
+
+
 	glutInit(&argc, argv); 
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); 
 	glutInitWindowSize(WIDTH,HEIGHT); 
@@ -29,30 +43,22 @@ int main (int argc, char *argv[])
 	glutDisplayFunc(display);  
 	glutIdleFunc(display);
 
-
+   	glutMouseFunc(mouse);
 	glutKeyboardFunc(keyboard);
 	initWindow();				             //create_window
 
+	
+
+
 	glutMainLoop();                 // Initialize The Main Loop
 
-*/
 
 
    
-	if(argc != 2) {
-		cerr << "Error. Program executed incorreclty. Please use './<program name> yourBinary.bin'" << endl;
-	}
 
 
-   
-   CPU cpu1(argv[1]);
-
-   cpu1.executeNextInstruction();
-   cpu1.executeNextInstruction();
- cpu1.executeNextInstruction();
- 
-   cpu1.printAllRegisters();
   
+
 //    cpu1.executeNextInstruction();
 //    cpu1.executeNextInstruction();
 //    cpu1.executeNextInstruction();
@@ -60,7 +66,9 @@ int main (int argc, char *argv[])
 //    cpu1.executeNextInstruction();
 //    cpu1.executeNextInstruction();
    
-	
+
 
    return 0;
 }
+
+
