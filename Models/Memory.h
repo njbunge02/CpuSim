@@ -52,6 +52,12 @@ class Memory
         pc = input;
     }
 
+    //updates pc
+    void updatePC(int input)
+    {
+        pc += input;
+    }
+
     //returns program counter
     int getPC()
     {return pc;}

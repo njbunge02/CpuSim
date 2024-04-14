@@ -22,11 +22,19 @@ class CPU
     Memory cpuMemory;
     Registers reg;
 
+    bool memoryAccessMux;
+    bool writeBackMux;
+    bool ALUMux;
+    bool pcMUX;
+
+
     Instruction instructionFetch();
 
     public:
 
-    CPU(){}
+    CPU(){
+  
+    }
 
     CPU(const string filename)
     {
@@ -50,6 +58,13 @@ class CPU
     void printCPU();
     
     void writeBack(Registers inputReg);
+    
+    //sets all the muxes based on the instruction
+    void setMuxes(Instruction instruct);
+
+    //updates PC
+    void updatePC();
+
 
   
 

@@ -51,8 +51,9 @@ string rTypeALU(string opcode, string rs, string rt, string rd, string shamt, st
    
         registers.pushToReg(destination, result);
          
-        return bitset<32>(result).to_string();
-       
+        string outputString = "Register " + to_string(destination) + ": " + bitset<32>(result).to_string();
+       return outputString;
+
     } else if (funct == "100010") { // sub
         int source = stoi(rs, nullptr, 2);
         int target = stoi(rt, nullptr, 2);
@@ -66,7 +67,8 @@ string rTypeALU(string opcode, string rs, string rt, string rd, string shamt, st
 
         registers.pushToReg(destination, result);
 
-        return bitset<32>(result).to_string();
+        string outputString = "Register " + to_string(destination) + ": " + bitset<32>(result).to_string();
+       return outputString;
     } else if (funct == "100100") { // and
         int source = stoi(rs, nullptr, 2);
         int target = stoi(rt, nullptr, 2);
@@ -80,7 +82,8 @@ string rTypeALU(string opcode, string rs, string rt, string rd, string shamt, st
 
         registers.pushToReg(destination, result);
 
-        return bitset<32>(result).to_string();
+        string outputString = "Register " + to_string(destination) + ": " + bitset<32>(result).to_string();
+       return outputString;
     } else if (funct == "100101"){ // or
         int source = stoi(rs, nullptr, 2);
         int target = stoi(rt, nullptr, 2);
@@ -94,7 +97,8 @@ string rTypeALU(string opcode, string rs, string rt, string rd, string shamt, st
 
         registers.pushToReg(destination, result);
 
-        return bitset<32>(result).to_string();
+        string outputString = "Register " + to_string(destination) + ": " + bitset<32>(result).to_string();
+       return outputString;
     } else if( funct == "101010"){ //slt
         int source = stoi(rs, nullptr, 2);
         int target = stoi(rt, nullptr, 2);
@@ -110,7 +114,8 @@ string rTypeALU(string opcode, string rs, string rt, string rd, string shamt, st
 
         registers.pushToReg(destination, result);
 
-        return bitset<32>(result).to_string();
+     string outputString = "Register " + to_string(destination) + ": " + bitset<32>(result).to_string();
+       return outputString;
     }
 }
 
@@ -127,8 +132,26 @@ string iTypeALU(string opcode, string rs, string rt, string imm, Registers& regi
 
         registers.pushToReg(source, result);
 
-        return bitset<32>(result).to_string();
+        string outputString = "Register " + to_string(source) + ": " + bitset<32>(result).to_string();
+        return outputString;
+    
     } else if (opcode == "000100"){ // beq (Updates PC)
+    //I_TYPE INSTRUCTIONS
+    //opcode	rs	rt	imm
+    int source = stoi(rs, nullptr, 2);
+    int target = stoi(rt, nullptr, 2);
+    int immediate = stoi(imm, nullptr, 2);
+
+    int val2 = stoi(registers.regVal(source), nullptr, 2);
+    int val1 = stoi(registers.regVal(target), nullptr, 2);
+
+    if (val1 == val2)
+    {
+        return "1";
+    } else
+    {
+        return "0";
+    }
 
     } else if (opcode == "101011") { //sw
     

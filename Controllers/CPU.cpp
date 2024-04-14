@@ -37,24 +37,57 @@ int CPU::readBinaryFile(const string filename) {
 
  void CPU::executeNextInstruction()
  {
-    cout << "Clock cycle: " << "1" << endl;
-    cout << "Instruction Fetch" << endl;
-    Instruction cpuInstruction = instructionFetch();
-    cout << cpuInstruction.getBinaryString() << endl;
-    cout << cpuInstruction.getAssemby() << endl;
-    vector<string> instruction = cpuInstruction.decodeInstruction();
-    for (int i = 0; i < instruction.size(); ++i) {
-       cout << instruction[i] << " ";
-    }
-   cout << endl;
+    cout << "Clock cycle: " << "1" << endl << endl;
 
-   Registers newReg = reg;
-   string result = executeALU(instruction, newReg); // The result of the ALU is returned as a string
-   cout << result << endl << endl;
 
+    //Instruction Fetch
+   cout << "Instruction Fetch" << endl;
+   cout << "-----------------" << endl;
+   Instruction cpuInstruction = instructionFetch();  
+   cout << "Instruction Binary: " << cpuInstruction.getBinaryString() << "\n\n\n";
+
+
+   //MIPS Controller
+   setMuxes(cpuInstruction);
+
+  
+
+   //Instruction Decode
+   cout << "Instruction Decode" << endl;
+   cout << "-----------------" << endl;
+   vector<string> instruction = cpuInstruction.decodeInstruction();
+   cout << "Assembly Code: " << cpuInstruction.getAssemby() << "\n\n\n";
    
 
+
+   //Execute
+   Registers newReg = reg;
+   string result = executeALU(instruction, newReg); // The result of the ALU is returned as a string
+   
+   if (ALUMux)
+   {
+   cout << "Execute" << endl;
+   cout << "-----------------" << endl;
+   cout << result.substr(12,32) << "\n\n\n";
+   }
+
+   //MemoryAccess
+   cout << "Memory Access" << endl;
+   cout << "-----------------" << endl;
+
+   cout << "\n\n\n";
+
+
+
+   //WriteBack
    writeBack(newReg);
+   cout << "WriteBack" << endl;
+   cout << "-----------------" << endl;
+   cout << result << "\n\n\n";
+
+
+   updatePC();
+   
  }
 
 
@@ -69,6 +102,58 @@ Instruction CPU::instructionFetch()
 {
    return cpuMemory.getInstruction();
 }
+
+void CPU::setMuxes(Instruction instruct)
+{
+
+vector<string> arguments = instruct.decodeInstruction();
+string opCode = arguments[0];
+
+
+
+if (opCode == "000000" || opCode == "001000")//RTYPE & addi
+{
+   memoryAccessMux = false;
+   writeBackMux = true;
+   ALUMux = true;
+   pcMUX = false;
+
+} else if (opCode == "101011"  || opCode == "100011") //lw & sw
+{
+   memoryAccessMux = true;
+   writeBackMux = true;
+   ALUMux = false;
+   pcMUX = false;
+
+} else if (opCode == "000100") //beq
+{
+   memoryAccessMux = false;
+   writeBackMux = false;
+   ALUMux = false;
+   pcMUX = true;
+} else if ( opCode == "000010") //j
+{
+   memoryAccessMux = false;
+   writeBackMux = false;
+   ALUMux = true;
+   pcMUX = true;
+
+} else
+{
+   cout << "INVALID OPCODE\n";
+   
+}
+
+}
+
+
+void CPU::updatePC()
+{
+   cpuMemory.updatePC(4);
+}
+
+
+
 
 
 

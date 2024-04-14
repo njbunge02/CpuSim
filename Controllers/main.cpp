@@ -48,8 +48,8 @@ int main (int argc, char *argv[])
    CPU cpu1(argv[1]);
 
    cpu1.executeNextInstruction();
-   cpu1.executeNextInstruction();
-   cpu1.executeNextInstruction();
+  // cpu1.executeNextInstruction();
+  /// cpu1.executeNextInstruction();
 //    cpu1.executeNextInstruction();
 //    cpu1.executeNextInstruction();
 //    cpu1.executeNextInstruction();
