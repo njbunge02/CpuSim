@@ -47,9 +47,10 @@ int CPU::readBinaryFile(const string filename) {
    cout << "Instruction Fetch" << endl;
    returnString << "Instruction Fetch" << endl;
    cout << "-----------------" << endl;
+   returnString << "-----------------" << endl;
    Instruction cpuInstruction = instructionFetch();  
    cout << "Instruction Binary: " << cpuInstruction.getBinaryString() << "\n\n\n";
-
+   returnString << "Instruction Binary: " << cpuInstruction.getBinaryString() << endl;
 
 
    //MIPS Controller
@@ -63,8 +64,10 @@ int CPU::readBinaryFile(const string filename) {
    cout << "Instruction Decode" << endl;
    returnString << "Instruction Decode" << endl;
    cout << "-----------------" << endl;
+   returnString << "-----------------" << endl;
    vector<string> instruction = cpuInstruction.decodeInstruction();
    cout << "Assembly Code: " << cpuInstruction.getAssemby() << "\n\n\n";
+   returnString << "Assembly Code: " << cpuInstruction.getAssemby() << endl;
    
    
   
@@ -81,6 +84,8 @@ int CPU::readBinaryFile(const string filename) {
    returnString << "Execute" << endl;
    cout << "-----------------" << endl;
    cout << result.substr(12,32) << "\n\n\n";
+   returnString << "-----------------" << endl;
+   returnString << result.substr(12,32) << endl;
 
 
 
@@ -108,6 +113,7 @@ int CPU::readBinaryFile(const string filename) {
    cout << "Memory Access" << endl;
    returnString << "Memory Access" << endl;
    cout << "-----------------" << endl;
+   returnString << "-----------------" << endl;
 
 
     if (instruction[0] == "100011") //lw
@@ -151,6 +157,7 @@ int CPU::readBinaryFile(const string filename) {
    cout << "WriteBack" << endl;
    returnString << "WriteBack" << endl;
    cout << "-----------------" << endl;
+   returnString << "-----------------" << endl;
 
 
 
@@ -158,6 +165,7 @@ int CPU::readBinaryFile(const string filename) {
    if (instruction[0] == "100011")
    {
       cout <<  cpuMemory.retrieveMemory(result.substr(0,32)) << " written to register " <<result.substr(33) << "\n\n\n";
+      returnString <<  cpuMemory.retrieveMemory(result.substr(0,32)) << " written to register " <<result.substr(33) << endl;
       
    } else
       cout << result << "\n\n\n";

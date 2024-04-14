@@ -29,7 +29,7 @@ cpuGlobal = cpu1;
 void stepRun()
 {
    string outLog = "";
-	outLog = cpuGlobal.executeNextInstruction();
+   outLog = cpuGlobal.executeNextInstruction();
    cpuGlobal.printAllRegisters();
    outputString += "----------\n" + outLog + "\n----------\n";
 
