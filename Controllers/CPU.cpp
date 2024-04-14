@@ -1,4 +1,3 @@
-#include "../Models/ALU.h"
 #include "CPU.h"
 
 int CPU::readBinaryFile(const string filename) {
@@ -47,11 +46,9 @@ int CPU::readBinaryFile(const string filename) {
     for (int i = 0; i < instruction.size(); ++i) {
        cout << instruction[i] << " ";
     }
-    cout << endl;
-
-    Registers newReg;
-    string result = executeALU(instruction, newReg); // The result of the ALU is returned as a string
-    cout << result << endl;
+   cout << endl;
+    string result = executeALU(instruction, reg); // The result of the ALU is returned as a string
+    cout << result << endl << endl;
  }
 
 Instruction CPU::instructionFetch()

@@ -9,6 +9,7 @@
 #include "../Models/Memory.h"
 #include "../Models/Registers.h"
 #include "../Models/Instruction.h"
+#include "../Models/ALU.h"
 
 using namespace std;
 
@@ -19,6 +20,7 @@ class CPU
     
     string instructionBinary;
     Memory cpuMemory;
+    Registers reg;
 
     Instruction instructionFetch();
 

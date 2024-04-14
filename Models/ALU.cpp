@@ -14,7 +14,7 @@
 //PC Changers : j and beq.
 
 // Gathers the instructions to be fed into their corresponding simulation (J-Type, R-Type or I-Type)
-string executeALU(const vector<string> instruction, Registers registers){
+string executeALU(const vector<string> instruction, Registers& registers){
     if(instruction.size() == 6) {
         string opcode = instruction[0];
         string rs = instruction[1];
@@ -28,25 +28,29 @@ string executeALU(const vector<string> instruction, Registers registers){
         string rs = instruction[1];
         string rt = instruction [2];
         string immed = instruction[3];
-        iTypeALU(opcode, rs, rt, immed, registers);
+        return iTypeALU(opcode, rs, rt, immed, registers);
     } else if (instruction.size() == 2){
         string opcode = instruction[0];
         string address = instruction[2];
-        jTypeALU(opcode, address);
+        return jTypeALU(opcode, address);
     }
 }
 
-string rTypeALU(string opcode, string rs, string rt, string rd, string shamt, string funct, Registers registers){
+string rTypeALU(string opcode, string rs, string rt, string rd, string shamt, string funct, Registers& registers){
     if (funct == "100000"){ // add
         int source = stoi(rs, nullptr, 2);
         int target = stoi(rt, nullptr, 2);
         int destination = stoi(rd, nullptr, 2);
+
 
         int sourceVal = stoi(registers.regVal(source), nullptr, 2);
         int targetVal = stoi(registers.regVal(target), nullptr, 2);
 
         int result = sourceVal + targetVal;
 
+   
+        registers.pushToReg(destination, result);
+         
         return bitset<32>(result).to_string();
        
     } else if (funct == "100010") { // sub
@@ -59,6 +63,9 @@ string rTypeALU(string opcode, string rs, string rt, string rd, string shamt, st
 
         int result = sourceVal - targetVal;
 
+
+        registers.pushToReg(destination, result);
+
         return bitset<32>(result).to_string();
     } else if (funct == "100100") { // and
         int source = stoi(rs, nullptr, 2);
@@ -70,6 +77,9 @@ string rTypeALU(string opcode, string rs, string rt, string rd, string shamt, st
 
         int result = sourceVal & targetVal;
 
+
+        registers.pushToReg(destination, result);
+
         return bitset<32>(result).to_string();
     } else if (funct == "100101"){ // or
         int source = stoi(rs, nullptr, 2);
@@ -80,6 +90,9 @@ string rTypeALU(string opcode, string rs, string rt, string rd, string shamt, st
         int targetVal = stoi(registers.regVal(target), nullptr, 2);
 
         int result = sourceVal | targetVal;
+
+
+        registers.pushToReg(destination, result);
 
         return bitset<32>(result).to_string();
     } else if( funct == "101010"){ //slt
@@ -95,20 +108,24 @@ string rTypeALU(string opcode, string rs, string rt, string rd, string shamt, st
             result = 1;
         }
 
+        registers.pushToReg(destination, result);
+
         return bitset<32>(result).to_string();
     }
 }
 
-string iTypeALU(string opcode, string rs, string rt, string imm, Registers registers){
+string iTypeALU(string opcode, string rs, string rt, string imm, Registers& registers){
     if (opcode == "001000"){ //addi 
         int source = stoi(rs, nullptr, 2);
         int target = stoi(rt, nullptr, 2);
         int immediate = stoi(imm, nullptr, 2);
 
-        int targetVal = stoi(registers.regVal(source), nullptr, 2);
+        int targetVal = stoi(registers.regVal(target), nullptr, 2);
         int immVal = immediate;
 
         int result = targetVal + immVal;
+
+        registers.pushToReg(source, result);
 
         return bitset<32>(result).to_string();
     } else if (opcode == "000100"){ // beq (Updates PC)

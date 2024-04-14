@@ -325,6 +325,10 @@ vector<string> convertToBinary(vector<vector<string> > instructions)
             rs = stoi(instructions[i][1].substr(1));
             rt = stoi(instructions[i][2].substr(1));
             imm = stoi(instructions[i][3]);
+
+   
+
+            lineDataSS << opCode << rs.to_string() << rt.to_string() << imm.to_string(); 
         }
 
         data.push_back(lineDataSS.str());
