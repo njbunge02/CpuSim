@@ -9,6 +9,7 @@ bool drawStep = true;
 
  int newLineCount = 0;
  float programY = -0.2f;
+ int instructionCount = 0;
 
 
 using namespace std;
@@ -28,10 +29,15 @@ cpuGlobal = cpu1;
 
 void stepRun()
 {
+   instructionCount += 1;
+
    string outLog = "";
    outLog = cpuGlobal.executeNextInstruction();
    cpuGlobal.printAllRegisters();
-   outputString += "----------\n" + outLog + "\n----------\n";
+   string asterics(64, '*');
+
+   outputString += "INSTRUCTION: " + to_string(instructionCount) + "\n";
+   outputString += asterics + "\n" + outLog + asterics + "\n";
 
    programY = -0.2f;
    for (int i = 0; i < outputString.size(); ++i)

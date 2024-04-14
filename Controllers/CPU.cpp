@@ -45,9 +45,9 @@ int CPU::readBinaryFile(const string filename) {
    cout << "Clock cycle: " << clockCycle << endl << endl;
    clockCycle += 1;
    cout << "Instruction Fetch" << endl;
-   returnString << "Instruction Fetch" << endl;
+   returnString << "---Instruction Fetch---" << endl;
    cout << "-----------------" << endl;
-   returnString << "-----------------" << endl;
+ 
    Instruction cpuInstruction = instructionFetch();  
    cout << "Instruction Binary: " << cpuInstruction.getBinaryString() << "\n\n\n";
    returnString << "Instruction Binary: " << cpuInstruction.getBinaryString() << endl;
@@ -61,10 +61,10 @@ int CPU::readBinaryFile(const string filename) {
    //Instruction Decode
    cout << "Clock cycle: " << clockCycle << endl << endl;
     clockCycle += 1;
-   cout << "Instruction Decode" << endl;
-   returnString << "Instruction Decode" << endl;
+   cout << "---Instruction Decode---" << endl;
+   returnString << "---Instruction Decode---" << endl;
    cout << "-----------------" << endl;
-   returnString << "-----------------" << endl;
+  
    vector<string> instruction = cpuInstruction.decodeInstruction();
    cout << "Assembly Code: " << cpuInstruction.getAssemby() << "\n\n\n";
    returnString << "Assembly Code: " << cpuInstruction.getAssemby() << endl;
@@ -81,13 +81,11 @@ int CPU::readBinaryFile(const string filename) {
    cout << "Clock cycle: " << clockCycle << endl << endl;
     clockCycle += 1;
    cout << "Execute" << endl;
-   returnString << "Execute" << endl;
+   returnString << "---Execute---" << endl;
    cout << "-----------------" << endl;
-   cout << result.substr(12,32) << "\n\n\n";
-   returnString << "-----------------" << endl;
-   returnString << result.substr(12,32) << endl;
-
-
+   cout << result.substr(12,33) << "\n\n\n";
+  
+   returnString << "Binary outputted from operation: " << result.substr(12,33) << endl;
 
    } else if (result == "1" && instruction[0] == "000100") //beq and equal
    {
@@ -96,6 +94,7 @@ int CPU::readBinaryFile(const string filename) {
    } else if (instruction[0] == "000010") // j
    {
       pcMUX = true;
+   
       pcUpdateValue = stoi(result);
    } 
     else if (instruction[0] == "100011") //sw
@@ -111,9 +110,9 @@ int CPU::readBinaryFile(const string filename) {
    cout << "Clock cycle: " << clockCycle << endl << endl;
     clockCycle += 1;
    cout << "Memory Access" << endl;
-   returnString << "Memory Access" << endl;
+   returnString << "---Memory Access---" << endl;
    cout << "-----------------" << endl;
-   returnString << "-----------------" << endl;
+
 
 
     if (instruction[0] == "100011") //lw
@@ -155,12 +154,9 @@ int CPU::readBinaryFile(const string filename) {
    cout << "Clock cycle: " << clockCycle << endl << endl;
     clockCycle += 1;
    cout << "WriteBack" << endl;
-   returnString << "WriteBack" << endl;
+   returnString << "---WriteBack---" << endl;
    cout << "-----------------" << endl;
-   returnString << "-----------------" << endl;
-
-
-
+ 
 
    if (instruction[0] == "100011")
    {
@@ -168,8 +164,10 @@ int CPU::readBinaryFile(const string filename) {
       returnString <<  cpuMemory.retrieveMemory(result.substr(0,32)) << " written to register " <<result.substr(33) << endl;
       
    } else
-      cout << result << "\n\n\n";
-    
+{
+      cout << result << "\n";
+      returnString << result << endl;
+}
    }
 
    updatePC();
@@ -227,7 +225,7 @@ if (opCode == "000000" || opCode == "001000")//RTYPE & addi
 {
    memoryAccessMux = false;
    writeBackMux = false;
-   ALUMux = true;
+   ALUMux = false;
    pcMUX = true;
 
 } else
@@ -245,7 +243,8 @@ void CPU::updatePC()
       cpuMemory.updatePC(0);
    else
    {
-      cpuMemory.updatePC(pcUpdateValue);
+      
+      cpuMemory.setPC(pcUpdateValue - 1);
    }
    
 }

@@ -73,7 +73,8 @@ class Memory
     //updates pc
     void updatePC(int input)
     {
-        updates += 1;
+        
+        
         pc += input;
     }
 
@@ -91,7 +92,7 @@ class Memory
 
     void putInMemory(string location, string contents)
     {
-     
+        updates += 1;
         hardDrive[location] = contents;
     }
 

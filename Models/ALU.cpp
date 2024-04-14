@@ -32,6 +32,7 @@ string executeALU(const vector<string> instruction, Registers& registers){
         string immed = instruction[3];
         return iTypeALU(opcode, rs, rt, immed, registers);
     } else if (instruction.size() == 2){
+    
         string opcode = instruction[0];
         string address = instruction[1];
         return jTypeALU(address);
@@ -209,6 +210,10 @@ string iTypeALU(string opcode, string rs, string rt, string imm, Registers& regi
 
 string jTypeALU(string address){
     // j is the only J-Type that we have
-    
-    return bitset<32>(stoi(address)).to_string();
+
+    string output = "";
+    output += to_string(stoi(address, nullptr, 2));
+
+ 
+    return output;
 }
