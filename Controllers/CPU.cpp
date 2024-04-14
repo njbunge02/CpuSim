@@ -47,9 +47,23 @@ int CPU::readBinaryFile(const string filename) {
        cout << instruction[i] << " ";
     }
    cout << endl;
-    string result = executeALU(instruction, reg); // The result of the ALU is returned as a string
-    cout << result << endl << endl;
+
+   Registers newReg = reg;
+   string result = executeALU(instruction, newReg); // The result of the ALU is returned as a string
+   cout << result << endl << endl;
+
+   
+
+   writeBack(newReg);
  }
+
+
+
+
+void CPU::writeBack(Registers inputReg)
+{
+   reg = inputReg;
+}
 
 Instruction CPU::instructionFetch()
 {

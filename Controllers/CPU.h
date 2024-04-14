@@ -48,6 +48,9 @@ class CPU
 
     //prints all the CPU stats
     void printCPU();
+    
+    void writeBack(Registers inputReg);
+
   
 
 };
