@@ -45,6 +45,7 @@ int CPU::readBinaryFile(const string filename) {
    cout << "Clock cycle: " << clockCycle << endl << endl;
    clockCycle += 1;
    cout << "Instruction Fetch" << endl;
+   returnString << "Instruction Fetch" << endl;
    cout << "-----------------" << endl;
    Instruction cpuInstruction = instructionFetch();  
    cout << "Instruction Binary: " << cpuInstruction.getBinaryString() << "\n\n\n";
@@ -60,6 +61,7 @@ int CPU::readBinaryFile(const string filename) {
    cout << "Clock cycle: " << clockCycle << endl << endl;
     clockCycle += 1;
    cout << "Instruction Decode" << endl;
+   returnString << "Instruction Decode" << endl;
    cout << "-----------------" << endl;
    vector<string> instruction = cpuInstruction.decodeInstruction();
    cout << "Assembly Code: " << cpuInstruction.getAssemby() << "\n\n\n";
@@ -76,6 +78,7 @@ int CPU::readBinaryFile(const string filename) {
    cout << "Clock cycle: " << clockCycle << endl << endl;
     clockCycle += 1;
    cout << "Execute" << endl;
+   returnString << "Execute" << endl;
    cout << "-----------------" << endl;
    cout << result.substr(12,32) << "\n\n\n";
 
@@ -103,6 +106,7 @@ int CPU::readBinaryFile(const string filename) {
    cout << "Clock cycle: " << clockCycle << endl << endl;
     clockCycle += 1;
    cout << "Memory Access" << endl;
+   returnString << "Memory Access" << endl;
    cout << "-----------------" << endl;
 
 
@@ -111,6 +115,9 @@ int CPU::readBinaryFile(const string filename) {
       cout << "Register where data is stored: " << result.substr(33) << endl;
       cout << "The data: " << cpuMemory.retrieveMemory(result.substr(0,32)) << endl;
       cout << "Address Accessed: " << result.substr(0, 32) << endl;
+      returnString << "Register where data is stored: " << result.substr(33) << endl;
+      returnString << "The data: " << cpuMemory.retrieveMemory(result.substr(0,32)) << endl;
+      returnString << "Address Accessed: " << result.substr(0, 32) << endl;
 
  
 
@@ -119,6 +126,8 @@ int CPU::readBinaryFile(const string filename) {
     {
       cout << "Address Location: " << result.substr(0,32) << endl;
       cout << "Data to be stored: " << result.substr(33) << endl;
+      returnString << "Address Location: " << result.substr(0,32) << endl;
+      returnString << "Data to be stored: " << result.substr(33) << endl;
 
      
       
@@ -140,6 +149,7 @@ int CPU::readBinaryFile(const string filename) {
    cout << "Clock cycle: " << clockCycle << endl << endl;
     clockCycle += 1;
    cout << "WriteBack" << endl;
+   returnString << "WriteBack" << endl;
    cout << "-----------------" << endl;
 
 
@@ -155,10 +165,6 @@ int CPU::readBinaryFile(const string filename) {
    }
 
    updatePC();
-
-
-   returnString << "Instruction Fetch\n";
-   returnString << "Test\n";
 
    return returnString.str();
    
