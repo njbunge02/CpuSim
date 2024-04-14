@@ -209,6 +209,6 @@ string iTypeALU(string opcode, string rs, string rt, string imm, Registers& regi
 
 string jTypeALU(string address){
     // j is the only J-Type that we have
-
-    return address;
+    
+    return bitset<32>(stoi(address)).to_string();
 }
