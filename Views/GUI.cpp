@@ -329,19 +329,20 @@ void display(void)
    
 
 
+if (drawStep)
+   {drawRunButton();
 
-   drawRunButton();
-  if (drawStep)
-   drawStepButton();
+   drawStepButton();}
 
 drawUpButton();
 drawDownButton();
   
   char outputChar[outputString.size() + 1]; 
    strcpy(outputChar, outputString.c_str());
+    if (drawStep){ 
    renderBitmapString(-0.35f, -0.345f, GLUT_BITMAP_HELVETICA_18, "Step Execution");
    renderBitmapString(0.22f, -0.345f, GLUT_BITMAP_HELVETICA_18, "Run");
-
+    }
    renderBitmapString(-0.85f, -0.2f, GLUT_BITMAP_HELVETICA_18, "Up");
    renderBitmapString(-0.65f, -0.2f, GLUT_BITMAP_HELVETICA_18, "Down");
 

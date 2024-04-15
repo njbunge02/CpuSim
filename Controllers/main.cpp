@@ -1,6 +1,11 @@
-#include <OpenGL/gl.h>
+//mac headers
+/*#include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
-#include <GLUT/glut.h>   
+#include <GLUT/glut.h>  */ 
+
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h>  
 
 #include <iostream>
 #include <fstream>
