@@ -27,6 +27,7 @@ class CPU
     bool writeBackMux;
     bool ALUMux;
     bool pcMUX;
+    bool NoMoreInstructions;
 
     int clockCycle;
     int pcUpdateValue;
@@ -39,6 +40,7 @@ class CPU
     CPU(){
     clockCycle = 1;
     pcUpdates = 0;
+    NoMoreInstructions = false;
 
     }
 
@@ -50,6 +52,7 @@ class CPU
         cpuMemory = tempCPUMemory;
         clockCycle = 1;
         pcUpdates = 0;
+        NoMoreInstructions = false;
     
     
     }

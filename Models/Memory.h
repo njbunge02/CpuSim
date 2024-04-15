@@ -37,6 +37,7 @@ class Memory
         pc = 0;
          updates = 0;
     accesses = 0;
+    
     }
 
     
@@ -61,7 +62,17 @@ class Memory
         {
             pc += 1;
             return instructionList[pc - 1];
-        } 
+        }
+    }
+
+    bool peekInstruction()
+    {
+        if (pc < instructionList.size())
+        {
+            return true;
+        } else
+        
+        {return false;}
     }
 
     //sets program counter

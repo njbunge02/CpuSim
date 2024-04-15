@@ -40,7 +40,11 @@ int CPU::readBinaryFile(const string filename) {
    stringstream returnString;
    pcUpdateValue = 0;
 
-
+   
+   if (!cpuMemory.peekInstruction())
+   {
+      return "END OF PROGRAM";
+   }
     //Instruction Fetch
    cout << "Clock cycle: " << clockCycle << endl << endl;
    clockCycle += 1;
@@ -87,10 +91,20 @@ int CPU::readBinaryFile(const string filename) {
   
    returnString << "Binary outputted from operation: " << result.substr(12,33) << endl;
 
-   } else if (result == "1" && instruction[0] == "000100") //beq and equal
+   } else if (instruction[0] == "000100") //beq and equal
    {
+      cout << "TEST: " << result[0] << endl;
+      cout << "TEST: " << result.substr(2) << endl;
+      if (result[0] == '1')
+      {
       pcMUX = true;
-      pcUpdateValue = stoi(result.substr(2));
+      cout <<  "REEEE" << result.substr(2) << " " << result << "\n";
+      pcUpdateValue = stoi(result.substr(2));} else
+      {
+         pcMUX = false;
+
+      }
+      
    } else if (instruction[0] == "000010") // j
    {
       pcMUX = true;
