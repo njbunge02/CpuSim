@@ -17,6 +17,8 @@ class Memory
 
     unordered_map<string, string> hardDrive;
 
+    vector<string> keys;
+
     int updates;
     int accesses;
 
@@ -71,7 +73,7 @@ class Memory
         {
             return true;
         } else
-        
+
         {return false;}
     }
 
@@ -105,6 +107,20 @@ class Memory
     {
         updates += 1;
         hardDrive[location] = contents;
+        keys.push_back(location);
+    }
+
+    string getMemoryString()
+    {
+        string outputString = "";
+        for (int i = 0; i < keys.size(); ++i)
+        {
+            outputString += "Address: " + keys[i] + "\n";
+            outputString += "Value: " + hardDrive[keys[i]] + "\n\n"; 
+        }
+
+        return outputString;
+        
     }
 
   

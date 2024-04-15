@@ -37,9 +37,11 @@ void stepRun()
    cpuGlobal.printAllRegisters();
    string asterics(64, '*');
 
+   if (outLog != "END OF PROGRAM"){
    outputString += "INSTRUCTION: " + to_string(instructionCount) + "\n";
    outputString += asterics + "\n" + outLog + asterics + "\n";
-
+   } else
+   {outLog += "END OF PROGRAM";}
    programY = -0.2f;
    for (int i = 0; i < outputString.size(); ++i)
    {
@@ -55,7 +57,7 @@ void cpuRun()
 {
  
 
-   string outLog = "";
+string outLog = "";
 while (outLog != "END OF PROGRAM")
 {
    instructionCount += 1;
@@ -125,6 +127,19 @@ void renderBitmapRegisterString(float x, float y, void *font, const char *string
         }
     }
 }
+void renderBitmapMemoryString(float x, float y, void *font, const char *string) {
+    const char *c;
+    glRasterPos2f(x, y);
+    for (c = string; *c != '\0'; c++) {
+        if (*c == '\n') {
+            // Move cursor to the beginning of the next line
+            y -= 0.025f;
+            glRasterPos2f(x, y);
+        } else {
+            glutBitmapCharacter(font, *c);
+        }
+    }
+}
 
 float boxX = -0.25f;
 float boxY = -0.4f;
@@ -175,12 +190,12 @@ void mouse(int button, int state, int x, int y) {
 
          
          if (mouseX >= -0.839063f && mouseX <= -0.71875f && mouseY >= -0.491667 && mouseY <= -0.386111f) {  //right run
-            cout << "UP" << endl;
+      
             programY += 0.05f;
         }  
 
          if (mouseX >= -0.639063f && mouseX <= -0.526563 && mouseY >= -0.486111 && mouseY <= -0.388889f) {  //right run
-            cout << "DOWN" << endl;
+           
             
              if (programY > -0.15f)
                programY -= 0.05;
@@ -349,7 +364,7 @@ drawDownButton();
 
    char statsChar[statsString.size()]; 
    strcpy(statsChar, statsString.c_str());
-   renderBitmapString(-0.3f, 0.0f, GLUT_BITMAP_HELVETICA_18, statsChar);
+   renderBitmapString(-0.3f, 0.2f, GLUT_BITMAP_HELVETICA_18, statsChar);
 
 
   drawBlackBox();
@@ -357,9 +372,13 @@ drawDownButton();
    glColor3f(1.0f, 1.0f, 1.0f); 
   renderBitmapProgramString(-0.95f, programY, GLUT_BITMAP_HELVETICA_10, outputChar);
 
+
+  memoryString = cpuGlobal.getMemoryString();
+  
+
   char memoryChar[memoryString.size() + 1]; 
    strcpy(memoryChar, memoryString.c_str());
-   renderBitmapRegisterString(-0.95f, programY, GLUT_BITMAP_HELVETICA_10, memoryChar);
+   renderBitmapMemoryString(-0.35f, 0.09f, GLUT_BITMAP_HELVETICA_10, memoryChar);
 
    glFlush();            
    glutSwapBuffers();

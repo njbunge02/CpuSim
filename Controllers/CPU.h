@@ -118,6 +118,19 @@ class CPU
         return outputString;
     }
 
+    string getMemoryString()
+    {
+        string outputString = "";
+
+        outputString += "MEMORY\n";
+      
+        outputString += cpuMemory.getMemoryString();
+
+
+
+        return outputString;
+    }
+
 
 
 
