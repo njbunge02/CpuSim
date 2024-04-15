@@ -59,19 +59,6 @@ int main (int argc, char *argv[])
 
 
 
-   
-
-
-  
-
-//    cpu1.executeNextInstruction();
-//    cpu1.executeNextInstruction();
-//    cpu1.executeNextInstruction();
-//    cpu1.executeNextInstruction();
-//    cpu1.executeNextInstruction();
-//    cpu1.executeNextInstruction();
-   
-
 
    return 0;
 }

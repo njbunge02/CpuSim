@@ -53,6 +53,7 @@ class Instruction
     string assemblyTranslation;
 
 
+    //converts the binary instruction into assembly code
     void convertBianryToAssembly();
 
     public:

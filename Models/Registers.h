@@ -32,6 +32,7 @@ class Registers
         }
     }
 
+    //inserts data into the register
     void pushToReg(int dest, int value){
         
         
@@ -42,8 +43,10 @@ class Registers
 
     }
 
+    //returns data from the registers from a specific index
     string regVal(int regNum) { return registers[regNum].to_string(); }
 
+    //returns the register update count
     int getRegisterUpdateCount()
     {
         return registerUpdates;

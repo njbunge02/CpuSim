@@ -3,21 +3,23 @@
 
 This project was provided to us as a way to simulate MIPS instructions. The program takes a binary file outputted by the /Assembler code, and translates the binary to instructions. These instructions are then ran through a simulation to populate registers based on the instruction it was given.
 
-For example. If the command addi $1 $2 10 will add 10 to the value stored in register 2 and store the result in register 1.
+**THIS PROGRAM RUNS ON THE SOC MACHINES**
+
+For example the command "addi $1, $2, 10" will add 10 to the value stored in register 2 and store the result in register 1.
 
 To run the program, use `make` and then `make run`.
 
 To update the file:
-`cd Assemble` and change the makefile to take in a different test case. Then, `cd ..` and use `make clean`, `make`, and then `make run` to ensure everything executes correctly.
+    In the `Assembler` directory open the `makefile`. Insert what ever testcase you want to run in this command: `./$(PROGRAM) {testCase}.s output.bin`. While still in the `Assembler` directory, run `make clean`, then `make`, then `make run`. This will create the correct .bin file used for the simulator. Next run `cd ..` to go to the main directory. Run `make clean`, then `make`, then `make run` to run the command. 
 
 # /Assembler
 Assembler is code from project 1 that reads assembly code from a text file and outputs the assembly code in binary to a .bin file. The .bin file is in turn used by the Cpu Simulator to decode the binary file and process the instructions.
 
 # /Controllers
-Controllers contains the CPU as well as the main file.
+Controllers contains the CPU as well as the main file. These do all the interactions between all of the models and the views.
 
 ## Main
-Main is what runs the entire simulation. The binary file is read in using command line arguments and then processed into the CPU.
+Main is what starts the GUI window in the view. It also initializes the main CPU controller for the whole program.
 
 ## CPU
 The CPU is a class that acts as the brain of the simulation. It holds two functions, one for reading in the binary and another to return the binary.

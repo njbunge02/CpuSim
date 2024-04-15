@@ -65,8 +65,10 @@ class Memory
             pc += 1;
             return instructionList[pc - 1];
         }
+
     }
 
+    //peeks the next instruction to see if it is the end of the program
     bool peekInstruction()
     {
         if (pc < instructionList.size())
@@ -95,7 +97,7 @@ class Memory
     int getPC()
     {return pc;}
 
-
+    //retrieves data from an address location
     string retrieveMemory(string location)
     {
         
@@ -103,6 +105,7 @@ class Memory
         return hardDrive[location];
     }
 
+    //puts a piece of data into an address
     void putInMemory(string location, string contents)
     {
         updates += 1;
@@ -110,6 +113,7 @@ class Memory
         keys.push_back(location);
     }
 
+    //for the memory GUI panel
     string getMemoryString()
     {
         string outputString = "";

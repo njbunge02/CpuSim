@@ -62,8 +62,10 @@ class CPU
 
     string getInstrunctionSet() {return instructionBinary;}
 
+    //runs the program
     void Run();
 
+    //runs the next instruction
     string executeNextInstruction();
 
     //prints all the CPU stats
@@ -77,6 +79,7 @@ class CPU
     //updates PC
     void updatePC();
 
+//prints all registers to terminal
     void printAllRegisters()
     {
         for (int i = 0; i < 32; ++i)
@@ -86,6 +89,7 @@ class CPU
         }
     }
 
+//String that displays registers for gui
     string getRegisterString()
     {
         string registerString = "";
@@ -102,6 +106,7 @@ class CPU
         return registerString;
     }
 
+    //String that displays stats for gui
     string getStatsString()
     {
         string outputString = "";
@@ -118,6 +123,7 @@ class CPU
         return outputString;
     }
 
+//String that displays memory for gui
     string getMemoryString()
     {
         string outputString = "";
