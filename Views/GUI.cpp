@@ -18,6 +18,7 @@ CPU cpuGlobal;
 string outputString = "";
 string registerString = "";
 string statsString = "";
+string memoryString = "";
 
 void initCPU(string filename)
 {
@@ -52,6 +53,32 @@ void stepRun()
 
 void cpuRun()
 {
+ 
+
+   string outLog = "";
+while (outLog != "END OF PROGRAM")
+{
+   instructionCount += 1;
+
+   outLog = cpuGlobal.executeNextInstruction();
+
+   cpuGlobal.printAllRegisters();
+   string asterics(64, '*');
+   if (outLog != "END OF PROGRAM"){
+   outputString += "INSTRUCTION: " + to_string(instructionCount) + "\n";
+   outputString += asterics + "\n" + outLog + asterics + "\n";
+   }
+   programY = -0.2f;
+
+   for (int i = 0; i < outputString.size(); ++i)
+   {
+      if (outputString[i] == '\n')
+      {
+         programY += 0.05f;
+      }
+   }
+}
+   outputString += "END OF PROGRAM";
 
 }
 
@@ -329,7 +356,10 @@ drawDownButton();
 
    glColor3f(1.0f, 1.0f, 1.0f); 
   renderBitmapProgramString(-0.95f, programY, GLUT_BITMAP_HELVETICA_10, outputChar);
- 
+
+  char memoryChar[memoryString.size() + 1]; 
+   strcpy(memoryChar, memoryString.c_str());
+   renderBitmapRegisterString(-0.95f, programY, GLUT_BITMAP_HELVETICA_10, memoryChar);
 
    glFlush();            
    glutSwapBuffers();

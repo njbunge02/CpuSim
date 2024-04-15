@@ -93,12 +93,11 @@ int CPU::readBinaryFile(const string filename) {
 
    } else if (instruction[0] == "000100") //beq and equal
    {
-      cout << "TEST: " << result[0] << endl;
-      cout << "TEST: " << result.substr(2) << endl;
+    
       if (result[0] == '1')
       {
       pcMUX = true;
-      cout <<  "REEEE" << result.substr(2) << " " << result << "\n";
+   
       pcUpdateValue = stoi(result.substr(2));} else
       {
          pcMUX = false;
@@ -139,7 +138,6 @@ int CPU::readBinaryFile(const string filename) {
       returnString << "Address Accessed: " << result.substr(0, 32) << endl;
 
  
-
       newReg.pushToReg(stoi(result.substr(33)),stoi(cpuMemory.retrieveMemory(result.substr(0,32)), nullptr, 2));
     } else
     {
@@ -147,6 +145,7 @@ int CPU::readBinaryFile(const string filename) {
       cout << "Data to be stored: " << result.substr(33) << endl;
       returnString << "Address Location: " << result.substr(0,32) << endl;
       returnString << "Data to be stored: " << result.substr(33) << endl;
+
 
      
       
